@@ -15,4 +15,4 @@ use App\Http\Controllers\Admin\DanhMucConController;
 */
 
 Route::resource('/ql-danhmuc', DanhMucController::class);
-Route::resource('/ql-danhmuccon', DanhMucController::class);
+Route::resource('/ql-danhmuccon', DanhMucConController::class);

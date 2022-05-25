@@ -64,22 +64,38 @@
                             
                         </div>
                     </div>
+                    {{-- error --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    {{--  --}}
                     <div class="container">
                         <form method="POST" action="{{route('ql-danhmuc.store')}}" class="needs-validation" novalidate>
                             @csrf
                             <div class="form-group">
                                 <label for="uname">Tên danh mục:</label>
-                                <input type="text" class="form-control" id="uname" placeholder="Tên danh mục" name="tendanhmuc" required>
+                                <input type="text" class="form-control" placeholder="Tên danh mục" name="tendanhmuc" required>
                                 <div class="invalid-feedback">Vui lòng nhập tên danh mục.</div>
                             </div>
                             <div class="form-group">
                                 <label for="uname">Slug danh mục:</label>
-                                <input type="text" class="form-control" id="uname" placeholder="Slug danh mục" name="slugdanhmuc" required>
+                                <input type="text" class="form-control"  placeholder="Slug danh mục" name="slugdanhmuc" required>
                                 <div class="invalid-feedback">Vui lòng nhập Slug danh mục.</div>
                             </div>
                             <div class="form-group">
                                 <label>Kích hoạt:</label>
-                                <select class="form-control">
+                                <select name="kichhoat" class="form-control">
                                   <option value="1">Kích hoạt</option>
                                   <option value="0">Không kích hoạt</option>  
                                 </select>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\DanhMuc;
 
 class DanhMucController extends Controller
 {
@@ -14,7 +15,8 @@ class DanhMucController extends Controller
      */
     public function index()
     {
-        return view('admin.danhmuc.index');
+        $danhmuc = DanhMuc::orderBy('id', 'ASC')->get();
+        return view('admin.danhmuc.index')->with(compact('danhmuc'));
     }
 
     /**
@@ -35,7 +37,18 @@ class DanhMucController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $request->validate([
+            'tendanhmuc' => 'required|unique:danhmuc|max:255',
+            'slugdanhmuc' => 'required|max:255',
+            'kichhoat' => 'required'
+        ]);
+        $data = $request->all();
+        $danhmuc = New DanhMuc();
+        $danhmuc->tenDanhMuc = $data['tendanhmuc'];
+        $danhmuc->slugDanhMuc = $data['slugdanhmuc'];
+        $danhmuc->kichhoat = $data['kichhoat'];
+        $danhmuc->save();
+        return redirect()->back()->with('status', 'Thêm thành công.');
     }
 
     /**

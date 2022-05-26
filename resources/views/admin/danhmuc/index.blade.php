@@ -90,17 +90,24 @@
                         <p class="text-xs font-weight-bold mb-0">{{$item->slugDanhMuc}}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">
                           @if ($item->kichhoat == 1)
-                              Kích hoạt
+                          <span class="badge badge-sm bg-gradient-success">Kích hoạt</span>
                           @else
-                              Không kích hoạt
+                          <span class="badge badge-sm bg-gradient-secondary">Không kích hoạt</span>
                           @endif
-                        </p>
+                        
                       </td>
-                      <td class="align-middle text-sm">
-                        <span class="btn badge badge-sm bg-gradient-success">Edit</span>
-                        <span class="btn badge badge-sm bg-gradient-secondary">Delete</span>
+                      <td class="nav">
+                        <form class="mt-2" action="{{route('ql-danhmuc.destroy',[$item->id])}}" method="POST">
+                          @method('DELETE')
+                          @csrf
+                          <button href="" class="btn btn-link text-danger text-gradient px-3 mb-0 m-sm-n3">
+                            <i class="far fa-trash-alt me-2"></i>Delete
+                          </button>
+                        </form>
+                        <a href="{{route('ql-danhmuc.edit',[$item->id])}}" class="btn btn-link text-dark px-3 mb-0">
+                          <i class="fas fa-pencil-alt text-dark me-2"></i>Edit
+                        </a>
                       </td>
                         
                     @endforeach

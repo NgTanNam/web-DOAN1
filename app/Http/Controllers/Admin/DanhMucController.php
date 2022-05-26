@@ -70,7 +70,8 @@ class DanhMucController extends Controller
      */
     public function edit($id)
     {
-        //
+        $danhmuc = DanhMuc::find($id);
+        return view('admin.danhmuc.edit')->with(compact('danhmuc'));
     }
 
     /**
@@ -82,7 +83,19 @@ class DanhMucController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'tendanhmuc' => 'required|max:255',
+            'slugdanhmuc' => 'required|max:255',
+            'kichhoat' => 'required'
+        ]);
+        $data = $request->all();
+        $danhmuc = DanhMuc::find($id);
+        $danhmuc->tenDanhMuc = $data['tendanhmuc'];
+        $danhmuc->slugDanhMuc = $data['slugdanhmuc'];
+        $danhmuc->kichhoat = $data['kichhoat'];
+        $danhmuc->save();
+        return redirect()->back()->with('status', 'Cập nhập thành công thành công.');
+
     }
 
     /**
@@ -93,6 +106,7 @@ class DanhMucController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DanhMuc::find($id)->delete();
+        return redirect()->back();
     }
 }

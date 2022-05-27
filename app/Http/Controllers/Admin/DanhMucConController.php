@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\DanhMuc;
+use App\Models\DanhMucCon;
 
 class DanhMucConController extends Controller
 {
@@ -24,7 +26,8 @@ class DanhMucConController extends Controller
      */
     public function create()
     {
-        //
+        $danhmuc = DanhMuc::all();
+        return view('admin.danhmuccon.create')->with(compact('danhmuc'));
     }
 
     /**
@@ -35,7 +38,20 @@ class DanhMucConController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'tenDMC' => 'required|unique:danhmuccon|max:255',
+            'slugDMC' => 'required|max:255',
+            'kichhoat' => 'required',
+            'idDM' => 'required'
+        ]);
+        $data = $request->all();
+        $danhmuccon = New DanhMucCon();
+        $danhmuccon->tenDMC = $data['tenDMC'];
+        $danhmuccon->slugDMC = $data['slugDMC'];
+        $danhmuccon->idDM = $data['idDM'];
+        $danhmuccon->kichhoat = $data['kichhoat'];
+        $danhmuccon->save();
+        return redirect()->back()->with('status', 'Thêm thành công.');
     }
 
     /**
@@ -57,7 +73,10 @@ class DanhMucConController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = DanhMucCon::find($id);
+        $tendanhmuc = DanhMuc::find($data->idDM);
+        $danhmuc = DanhMuc::all();
+        return view('admin.danhmuccon.edit')->with(compact('data','tendanhmuc', 'danhmuc'));
     }
 
     /**
@@ -69,7 +88,20 @@ class DanhMucConController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'tenDMC' => 'required|max:255',
+            'slugDMC' => 'required|max:255',
+            'kichhoat' => 'required',
+            'idDM' => 'required'
+        ]);
+        $data = $request->all();
+        $danhmuccon = DanhMucCon::find($id);
+        $danhmuccon->tenDMC = $data['tenDMC'];
+        $danhmuccon->slugDMC = $data['slugDMC'];
+        $danhmuccon->idDM = $data['idDM'];
+        $danhmuccon->kichhoat = $data['kichhoat'];
+        $danhmuccon->save();
+        return redirect()->back()->with('status', 'Cập nhập thành công.');
     }
 
     /**
@@ -80,6 +112,7 @@ class DanhMucConController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DanhMucCon::find($id)->delete();
+        return redirect()->back();
     }
 }

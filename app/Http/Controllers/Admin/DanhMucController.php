@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DanhMuc;
+use App\Models\DanhMucCon;
 
 class DanhMucController extends Controller
 {
@@ -16,7 +17,8 @@ class DanhMucController extends Controller
     public function index()
     {
         $danhmuc = DanhMuc::orderBy('id', 'ASC')->get();
-        return view('admin.danhmuc.index')->with(compact('danhmuc'));
+        $danhmuccon = DanhMucCon::with('danhmuc')->orderBy('id','DESC')->get();
+        return view('admin.danhmuc.index')->with(compact('danhmuc','danhmuccon'));
     }
 
     /**

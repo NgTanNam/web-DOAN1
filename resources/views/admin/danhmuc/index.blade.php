@@ -128,40 +128,61 @@
                   <h6 class="mb-0">Sub-category</h6>
                 </div>
                 <div class="col-6 text-end">
-                  <a href="" class="btn btn-outline-primary btn-sm mb-0">ADD</a>
+                  <a href="{{route('ql-danhmuccon.create')}}" class="btn btn-outline-primary btn-sm mb-0">ADD</a>
                 </div>
               </div>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
-                <table class="table align-items-center justify-content-center mb-0">
+                {{--  --}}
+                <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên danh mục</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Thuộc danh mục</th>                     
-                      <th></th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Danh mục con</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Slug danh mục con</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Danh Mục</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Kích hoạt</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quản lý</th>
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($danhmuccon as $key => $item)
                     <tr>
                       <td>
-                        <div class="d-flex px-2">
-                          <div class="my-auto">
-                            <h6 class="mb-0 text-sm">1</h6>
-                          </div>
-                        </div>
+                        <p class="text-xs ms-sm-3 font-weight-bold mb-0">{{$key}}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">Tuor du lịch</p>
+                        <p class="text-xs font-weight-bold mb-0">{{$item->tenDMC}}</p>
                       </td>
                       <td>
-                        <span class="text-xs font-weight-bold">Du lịch</span>
+                        <p class="text-xs font-weight-bold mb-0">{{$item->slugDMC}}</p>
                       </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-success">Edit</span>
-                        <span class="badge badge-sm bg-gradient-secondary">Delete</span>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">{{$item->danhmuc->tenDanhMuc}}</p>
                       </td>
+                      <td>
+                          @if ($item->kichhoat == 1)
+                          <span class="badge badge-sm bg-gradient-success">Kích hoạt</span>
+                          @else
+                          <span class="badge badge-sm bg-gradient-secondary">Không kích hoạt</span>
+                          @endif
+                        
+                      </td>
+                      <td class="nav">
+                        <form class="mt-2" action="{{route('ql-danhmuccon.destroy',[$item->id])}}" method="POST">
+                          @method('DELETE')
+                          @csrf
+                          <button class="btn btn-link text-danger text-gradient px-3 mb-0 m-sm-n3">
+                            <i class="far fa-trash-alt me-2"></i>Delete
+                          </button>
+                        </form>
+                        <a href="{{route('ql-danhmuccon.edit',[$item->id])}}" class="btn btn-link text-dark px-3 mb-0">
+                          <i class="fas fa-pencil-alt text-dark me-2"></i>Edit
+                        </a>
+                      </td>
+                        
+                    @endforeach
                     </tr>
                   </tbody>
                 </table>

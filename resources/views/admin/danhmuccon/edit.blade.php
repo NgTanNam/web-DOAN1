@@ -59,7 +59,7 @@
                     <div class="card-header pb-0 p-3">
                         <div class="row">
                             <div class="col-6 d-flex align-items-center">
-                            <h6 class="mb-0">Add Category</h6>
+                            <h6 class="mb-0">Edit Sub-category</h6>
                             </div>
                             
                         </div>
@@ -81,26 +81,41 @@
                     @endif
                     {{--  --}}
                     <div class="container">
-                        <form method="POST" action="{{route('ql-danhmuc.store')}}" class="needs-validation" novalidate>
+                        <form method="POST" action="{{route('ql-danhmuccon.update', [$data->id])}}" class="needs-validation" novalidate>
+                          @method('PUT')
                             @csrf
                             <div class="form-group">
-                                <label for="uname">Tên danh mục:</label>
-                                <input type="text" class="form-control" value="{{old('tendanhmuc')}}" onkeyup="ChangeToSlug();" id="slug" placeholder="Tên danh mục" name="tendanhmuc" required>
-                                <div class="invalid-feedback">Vui lòng nhập tên danh mục.</div>
+                                <label for="uname">Tên danh mục con:</label>
+                                <input type="text" class="form-control" value="{{$data->tenDMC}}" onkeyup="ChangeToSlug();" id="slug" placeholder="Tên danh mục" name="tenDMC" required>
+                                <div class="invalid-feedback">Vui lòng nhập tên danh mục con.</div>
                             </div>
                             <div class="form-group">
-                                <label for="uname">Slug danh mục:</label>
-                                <input type="text" class="form-control" value="{{old('slugdanhmuc')}}" id="convert_slug" placeholder="Slug danh mục" name="slugdanhmuc" required>
-                                <div class="invalid-feedback">Vui lòng nhập Slug danh mục.</div>
+                                <label for="uname">Slug danh mục con:</label>
+                                <input type="text" class="form-control" value="{{$data->slugDMC}}" id="convert_slug" placeholder="Slug danh mục" name="slugDMC" required>
+                                <div class="invalid-feedback">Vui lòng nhập Slug danh mục con.</div>
                             </div>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1" class="form-label">Danh mục</label>
+                              <select class="form-select" name="idDM" aria-label="Default select example">
+                                  @foreach ($danhmuc as $key => $muc)                     
+                                      <option value="{{$muc->id}}">{{$muc->tenDanhMuc}}</option>
+                                  @endforeach
+                              </select>
+                            </div>
+
                             <div class="form-group">
                                 <label>Kích hoạt:</label>
                                 <select name="kichhoat" class="form-control">
-                                  <option value="1">Kích hoạt</option>
-                                  <option value="0">Không kích hoạt</option>  
+                                  @if ($data->kichhoat == 1)
+                                    <option selected value="1">Kích hoạt</option>
+                                    <option value="0">Không kích hoạt</option> 
+                                  @else
+                                  <option  value="1">Kích hoạt</option>
+                                  <option selected value="0">Không kích hoạt</option> 
+                                  @endif 
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-outline-primary btn-sm mb-0 mb-4">Thêm</button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm mb-0 mb-4">Cập nhập</button>
                         </form>
 
                     </div>

@@ -86,12 +86,12 @@
                             @csrf
                             <div class="form-group">
                                 <label for="uname">Tên danh mục:</label>
-                                <input type="text" class="form-control" value="{{$danhmuc->tenDanhMuc}}" placeholder="Tên danh mục" name="tendanhmuc" required>
+                                <input type="text" class="form-control" value="{{$danhmuc->tenDanhMuc}}"  onkeyup="ChangeToSlug();" id="slug" placeholder="Tên danh mục" name="tendanhmuc" required>
                                 <div class="invalid-feedback">Vui lòng nhập tên danh mục.</div>
                             </div>
                             <div class="form-group">
                                 <label for="uname">Slug danh mục:</label>
-                                <input type="text" class="form-control" value="{{$danhmuc->slugDanhMuc}}"  placeholder="Slug danh mục" name="slugdanhmuc" required>
+                                <input type="text" class="form-control" value="{{$danhmuc->slugDanhMuc}}" id="convert_slug"  placeholder="Slug danh mục" name="slugdanhmuc" required>
                                 <div class="invalid-feedback">Vui lòng nhập Slug danh mục.</div>
                             </div>
                             <div class="form-group">
@@ -107,7 +107,7 @@
                                    
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-outline-primary btn-sm mb-0 mb-4">Thêm</button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm mb-0 mb-4">Cập nhập</button>
                         </form>
 
                     </div>

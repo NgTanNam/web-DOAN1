@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\DanhMuc;
-use App\Models\DanhMucCon;
+use App\Models\SuKien;
 
-class DanhMucController extends Controller
+class SuKienController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,8 @@ class DanhMucController extends Controller
      */
     public function index()
     {
-        $danhmuc = DanhMuc::orderBy('id', 'ASC')->paginate(5);
-        $danhmuccon = DanhMucCon::with('danhmuc')->orderBy('id','DESC')->get();
-        return view('admin.danhmuc.index')->with(compact('danhmuc','danhmuccon'));
+        $sukien = SuKien::orderBy('maSuKien', 'ASC')->paginate(5);
+        return view('admin.sukien.index')->with(compact('sukien'));
     }
 
     /**
@@ -28,7 +26,7 @@ class DanhMucController extends Controller
      */
     public function create()
     {
-        return view('admin.danhmuc.create');
+        return view('admin.sukien.create');
     }
 
     /**
@@ -39,17 +37,17 @@ class DanhMucController extends Controller
      */
     public function store(Request $request)
     {
-       $request->validate([
-            'tendanhmuc' => 'required|unique:danhmuc|max:255',
-            'slugdanhmuc' => 'required|max:255',
-            'kichhoat' => 'required'
+        $request->validate([
+            'tenSuKien' => 'required|unique:sukien|max:255',
+            'ngayBatDau' => 'required',
+            'ngayKetThuc' => 'required'
         ]);
         $data = $request->all();
-        $danhmuc = New DanhMuc();
-        $danhmuc->tenDanhMuc = $data['tendanhmuc'];
-        $danhmuc->slugDanhMuc = $data['slugdanhmuc'];
-        $danhmuc->kichhoat = $data['kichhoat'];
-        $danhmuc->save();
+        $sukien = New SuKien();
+        $sukien->tenSuKien = $data['tenSuKien'];
+        $sukien->ngayBatDau = $data['ngayBatDau'];
+        $sukien->ngayKetThuc = $data['ngayKetThuc'];
+        $sukien->save();
         return redirect()->back()->with('status', 'Thêm thành công.');
     }
 
@@ -72,8 +70,8 @@ class DanhMucController extends Controller
      */
     public function edit($id)
     {
-        $danhmuc = DanhMuc::find($id);
-        return view('admin.danhmuc.edit')->with(compact('danhmuc'));
+        $sukien = SuKien::find($id);
+        return view('admin.sukien.edit')->with(compact('sukien'));
     }
 
     /**
@@ -86,18 +84,17 @@ class DanhMucController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'tendanhmuc' => 'required|max:255',
-            'slugdanhmuc' => 'required|max:255',
-            'kichhoat' => 'required'
+            'tenSuKien' => 'required|max:255',
+            'ngayBatDau' => 'required',
+            'ngayKetThuc' => 'required'
         ]);
         $data = $request->all();
-        $danhmuc = DanhMuc::find($id);
-        $danhmuc->tenDanhMuc = $data['tendanhmuc'];
-        $danhmuc->slugDanhMuc = $data['slugdanhmuc'];
-        $danhmuc->kichhoat = $data['kichhoat'];
-        $danhmuc->save();
-        return redirect()->back()->with('status', 'Cập nhập thành công thành công.');
-
+        $sukien = SuKien::find($id);
+        $sukien->tenSuKien = $data['tenSuKien'];
+        $sukien->ngayBatDau = $data['ngayBatDau'];
+        $sukien->ngayKetThuc = $data['ngayKetThuc'];
+        $sukien->save();
+        return redirect()->back()->with('status', 'Cập nhập thành công.');
     }
 
     /**
@@ -108,7 +105,7 @@ class DanhMucController extends Controller
      */
     public function destroy($id)
     {
-        DanhMuc::find($id)->delete();
+        SuKien::find($id)->delete();
         return redirect()->back();
     }
 }

@@ -16,8 +16,8 @@ class DanhMucController extends Controller
      */
     public function index()
     {
-        $danhmuc = DanhMuc::orderBy('id', 'ASC')->paginate(5);
-        $danhmuccon = DanhMucCon::with('danhmuc')->orderBy('id','DESC')->get();
+        $danhmuc = DanhMuc::orderBy('id', 'ASC')->get();
+        $danhmuccon = DanhMucCon::with('danhmuc')->orderBy('id','DESC')->paginate(5);
         return view('admin.danhmuc.index')->with(compact('danhmuc','danhmuccon'));
     }
 
@@ -109,6 +109,7 @@ class DanhMucController extends Controller
     public function destroy($id)
     {
         DanhMuc::find($id)->delete();
+        DanhMucCon::where('idDM', $id)->delete();
         return redirect()->back();
     }
 }

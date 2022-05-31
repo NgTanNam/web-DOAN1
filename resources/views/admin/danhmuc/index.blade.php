@@ -67,9 +67,9 @@
                   </tbody>
                 </table>
 
-                <div class="p-2">
+                {{-- <div class="p-2">
                   {{$danhmuc->links()}}
-                </div>  
+                </div>   --}}
 
               </div>
             </div>
@@ -143,6 +143,10 @@
                     </tr>
                   </tbody>
                 </table>
+                <div class="p-2">
+                  {{$danhmuccon->links()}}
+                </div>
+
               </div>
             </div>
           </div>

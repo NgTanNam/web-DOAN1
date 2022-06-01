@@ -24,46 +24,63 @@
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Hình ảnh</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Danh mục</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Slug danh mục</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Kích hoạt</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Sự kiện</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Chi tiết bài viết</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Hình ảnh mô tả</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Video</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Trạng thái</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quản lý</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {{-- @foreach ($danhmuc as $key => $item)
+                    @foreach ($baiviet as $key => $item)
                     <tr>
                       <td>
                         <p class="text-xs ms-sm-3 font-weight-bold mb-0">{{$key}}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{$item->tenDanhMuc}}</p>
+                        <img class="max-width-300 max-height-150 rounded-2" src="{{asset('uploads/images/'.$item->image)}}" alt="">
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{$item->slugDanhMuc}}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{$item->danhmuccon->tenDMC}}</p>
                       </td>
                       <td>
-                          @if ($item->kichhoat == 1)
+                        <p class="text-xs font-weight-bold mb-0">{{$item->sukien->tenSuKien}}</p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">{{$item->chiTietBaiViet}}</p>
+                      </td>
+                      
+                      <td>
+                        <a href="" class="btn mt-3 btn-outline-primary btn-sm">Thư mục ảnh</a>
+                      </td>
+                      <td>
+                        <a href="" class="btn mt-3 btn-outline-primary btn-sm">Thư mục video</a>
+                      </td>
+                      <td>
+                          @if ($item->trangThai == 0)
                           <span class="badge badge-sm bg-gradient-success">activate</span>
                           @else
                           <span class="badge badge-sm bg-gradient-secondary">inactive</span>
                           @endif
                         
-                      </td> --}}
-                      <td class="nav">
-                        {{-- <form class="mt-2" action="{{route('ql-danhmuc.destroy',[$item->id])}}" method="POST">
+                      </td>
+                      <td>
+                        <form class="float-start mt-2" action="{{route('ql-baiviet.destroy',[$item->maBV])}}" method="POST">
                           @method('DELETE')
                           @csrf
-                          <button href="" class="btn btn-link text-danger text-gradient px-3 mb-0 m-sm-n3">
+                          <button href="" class="btn  btn-link text-danger text-gradient px-3 mb-0 m-sm-n3">
                             <i class="far fa-trash-alt me-2"></i>Delete
                           </button>
                         </form>
-                        <a href="{{route('ql-danhmuc.edit',[$item->id])}}" class="btn btn-link text-dark px-3 mb-0">
+                        <a href="{{route('ql-baiviet.edit',[$item->maBV])}}" class="btn btn-link text-dark px-3 mb-0">
                           <i class="fas fa-pencil-alt text-dark me-2"></i>Edit
-                        </a> --}}
+                        </a>
                       </td>
                         
-                    {{-- @endforeach --}}
+                    @endforeach
                     </tr>
                   </tbody>
                 </table>

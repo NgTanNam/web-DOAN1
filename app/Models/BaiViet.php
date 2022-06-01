@@ -14,4 +14,12 @@ class BaiViet extends Model
     ];
     protected $primaryKey = 'maBV';
     protected $table = 'baiviet';
+
+    public function danhmuccon(){
+        return $this->belongsTo('App\Models\DanhMucCon','maDM','id');
+    }
+
+    public function sukien(){
+        return $this->belongsTo('App\Models\SuKien','maSK','maSuKien');
+    }
 }

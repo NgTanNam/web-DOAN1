@@ -42,7 +42,7 @@
                         <p class="text-xs font-weight-bold mb-0">{{$item->slugDanhMuc}}</p>
                       </td>
                       <td>
-                          @if ($item->kichhoat == 1)
+                          @if ($item->kichhoat == 0)
                           <span class="badge badge-sm bg-gradient-success">activate</span>
                           @else
                           <span class="badge badge-sm bg-gradient-secondary">inactive</span>
@@ -119,7 +119,7 @@
                         <p class="text-xs font-weight-bold mb-0">{{$item->danhmuc->tenDanhMuc}}</p>
                       </td>
                       <td>
-                          @if ($item->kichhoat == 1)
+                          @if ($item->kichhoat == 0)
                           <span class="badge badge-sm bg-gradient-success">activate</span>
                           @else
                           <span class="badge badge-sm bg-gradient-secondary">inactive</span>

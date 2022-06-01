@@ -49,12 +49,12 @@
                             <div class="form-group">
                                 <label>Kích hoạt:</label>
                                 <select name="kichhoat" class="form-control">
-                                    @if ($danhmuc->kichhoat == 1)
-                                        <option selected value="1">Kích hoạt</option>
-                                        <option value="0">Không kích hoạt</option> 
+                                    @if ($danhmuc->kichhoat == 0)
+                                        <option selected value="0">Kích hoạt</option>
+                                        <option value="1">Không kích hoạt</option> 
                                     @else
-                                        <option value="1">Kích hoạt</option>
-                                        <option selected value="0">Không kích hoạt</option> 
+                                        <option value="0">Kích hoạt</option>
+                                        <option selected value="1">Không kích hoạt</option> 
                                     @endif
                                    
                                 </select>

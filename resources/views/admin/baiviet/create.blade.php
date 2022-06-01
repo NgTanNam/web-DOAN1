@@ -41,7 +41,7 @@
                                 <label>Danh mục:</label>
                                 <select name="idDM" class="form-select">
                                   @foreach ($danhmuc as $item)
-                                    <option value="{{$item->id}}">{{$item->tenDanhMuc}}</option>
+                                    <option value="{{$item->id}}">{{$item->tenDMC}}</option>
                                   @endforeach
                                 </select>
                             </div>
@@ -61,8 +61,8 @@
                             <div class="form-group">
                                 <label>Trạng thái:</label>
                                 <select name="trangThai" class="form-select">
-                                  <option value="1">Kích hoạt</option>
-                                  <option value="0">Không kích hoạt</option>  
+                                  <option value="0">Kích hoạt</option>
+                                  <option value="1">Không kích hoạt</option>  
                                 </select>
                             </div>
                             <div class="form-group">
@@ -73,6 +73,11 @@
                             <div class="form-group">
                                 <label for="">Hình ảnh mô tả:</label>
                                 <input type="file" class="form-control" multiple name="images[]" id="">
+                                <div class="invalid-feedback">Vui lòng nhập tên sự kiện.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Video:</label>
+                                <input type="file" class="form-control" multiple name="videos[]" id="">
                                 <div class="invalid-feedback">Vui lòng nhập tên sự kiện.</div>
                             </div>
                             

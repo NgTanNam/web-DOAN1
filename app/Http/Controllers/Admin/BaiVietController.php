@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SuKien;
-use App\Models\DanhMuc;
+use App\Models\DanhMucCon;
 use App\Models\BaiViet;
 use App\Models\HinhAnh;
 use App\Models\Video;
@@ -19,8 +19,8 @@ class BaiVietController extends Controller
      */
     public function index()
     {
-        
-        return view('admin.baiviet.index');
+        $baiviet = BaiViet::orderBy('maBV', 'DESC')->get();
+        return view('admin.baiviet.index')->with(compact('baiviet'));
     }
 
     /**
@@ -31,7 +31,7 @@ class BaiVietController extends Controller
     public function create()
     {
         $sukien = SuKien::all();
-        $danhmuc = DanhMuc::all();
+        $danhmuc = DanhMucCon::all();
         return view('admin.baiviet.create')->with(compact('sukien','danhmuc'));
     }
 
@@ -61,7 +61,7 @@ class BaiVietController extends Controller
         $path = 'uploads/images';
         $get_name_image = $get_image->getClientOriginalName();
         $name_image = current(explode('.', $get_name_image));
-        $new_image = $name_image.rand(0,999).'.'.$get_image->getClientOriginalExtension();
+        $new_image = $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
         $get_image->move($path,$new_image);
 
         $baiviet->image=$new_image;
@@ -84,6 +84,25 @@ class BaiVietController extends Controller
                 $hinhanh->maBV=$baiviet->maBV;
 
                 $hinhanh->save();
+            }
+        }
+
+        // video
+        $pathvideo = 'uploads/videos';
+        $videos = $request->file('videos');
+        if($videos){
+            foreach($videos as $video){
+                $get_name_videos = $video->getClientOriginalName();
+                $name_videos = current(explode('.', $get_name_videos));
+                $new_videos = $name_videos.rand(0,9999).'.'.$video->getClientOriginalExtension();
+                $video->move($pathvideo,$new_videos);
+
+                $video = new Video();
+
+                $video->video=$new_videos;
+                $video->maBV=$baiviet->maBV;
+
+                $video->save();
             }
         }
 

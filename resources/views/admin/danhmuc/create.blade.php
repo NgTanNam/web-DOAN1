@@ -48,8 +48,8 @@
                             <div class="form-group">
                                 <label>Kích hoạt:</label>
                                 <select name="kichhoat" class="form-control">
-                                  <option value="1">Kích hoạt</option>
-                                  <option value="0">Không kích hoạt</option>  
+                                  <option value="0">Kích hoạt</option>
+                                  <option value="1">Không kích hoạt</option>  
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-outline-primary btn-sm mb-0 mb-4">Thêm</button>

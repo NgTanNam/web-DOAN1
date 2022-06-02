@@ -55,7 +55,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Chi tiết bài viết:</label>
-                                <textarea name="chiTietBaiViet" class="form-control" id="" rows="7"></textarea>
+                                <textarea name="chiTietBaiViet" class="form-control" id="ckeditor" rows="7"></textarea>
                                 <div class="invalid-feedback">Vui lòng nhập chi tiết bài viết.</div>
                             </div>
                             <div class="form-group">

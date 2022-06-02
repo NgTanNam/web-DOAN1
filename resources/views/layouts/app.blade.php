@@ -16,6 +16,8 @@
   <link href="{{asset('admin/css/nucleo-svg.css')}}" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+  
   <link href="{{asset('admin/css/nucleo-svg.css')}}" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="{{asset('admin/css/argon-dashboard.css')}}" rel="stylesheet" />
@@ -199,6 +201,11 @@
         });
       }, false);
     })();
+    </script>
+
+    <script src="{{asset('admin/ckeditor/ckeditor.js')}}"></script>
+    <script>
+        CKEDITOR.replace('ckeditor');
     </script>
 
 </body>

@@ -340,6 +340,8 @@ table {
   border-collapse: collapse;
 }
 
+
+
 caption {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -3560,6 +3562,7 @@ textarea.form-control.is-invalid {
   border-radius: 0.5rem;
   transition: all 0.15s ease-in;
 }
+
 
 @media (prefers-reduced-motion: reduce) {
   .btn {
@@ -24785,6 +24788,7 @@ p {
 .text-9xl {
   font-size: 5rem;
 }
+
 
 .dark-version {
   background-color: #051139 !important;

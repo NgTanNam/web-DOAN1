@@ -28,8 +28,7 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Danh mục</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Sự kiện</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Chi tiết bài viết</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Hình ảnh mô tả</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Video</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quản lý ảnh video</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Trạng thái</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quản lý</th>
                     </tr>
@@ -50,14 +49,16 @@
                         <p class="text-xs font-weight-bold mb-0">{{$item->sukien->tenSuKien}}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{$item->chiTietBaiViet}}</p>
-                      </td>
-                      
-                      <td>
-                        <a href="" class="btn mt-3 btn-outline-primary btn-sm">Thư mục ảnh</a>
+                        <p class="text-xs font-weight-bold mb-0" style=" height:150px; width: 200px; overflow: hidden; display: block; white-space: normal; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 10;">
+                          {{$item->chiTietBaiViet}}</p>
                       </td>
                       <td>
-                        <a href="" class="btn mt-3 btn-outline-primary btn-sm">Thư mục video</a>
+                        <a href="" class="btn btn-link text-dark px-3 mb-0">
+                          <i class="far fa-image text-2xl"></i>
+                        </a>
+                        <a href="" class="btn btn-link text-dark px-3 mb-0">
+                          <i class="fas fa-film text-2xl"></i>
+                        </a>
                       </td>
                       <td>
                           @if ($item->trangThai == 0)

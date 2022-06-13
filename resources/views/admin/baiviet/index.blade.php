@@ -25,8 +25,8 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">STT</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Hình ảnh</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Danh mục</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Sự kiện</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên bài viết</th>
+                      {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Danh mục</th> --}}
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Chi tiết bài viết</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quản lý ảnh video</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Trạng thái</th>
@@ -40,23 +40,29 @@
                         <p class="text-xs ms-sm-3 font-weight-bold mb-0">{{$key}}</p>
                       </td>
                       <td>
-                        <img class="max-width-300 max-height-150 rounded-2" src="{{asset('uploads/images/'.$item->image)}}" alt="">
+                        <img class="rounded-2" width="250" height="150" src="{{asset('uploads/images/'.$item->image)}}" alt="">
                       </td>
                       <td>
+                        <p style="width: 100px; white-space: normal " class="text-xs font-weight-bold mb-0">{{$item->tenBV}}</p>
+                      </td>
+                      {{-- <td>
                         <p class="text-xs font-weight-bold mb-0">{{$item->danhmuccon->tenDMC}}</p>
-                      </td>
-                      <td>
+                      </td> --}}
+                      {{-- <td>
                         <p class="text-xs font-weight-bold mb-0">{{$item->sukien->tenSuKien}}</p>
-                      </td>
+                      </td> --}}
                       <td>
                         <p class="text-xs font-weight-bold mb-0" style=" height:150px; width: 200px; overflow: hidden; display: block; white-space: normal; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 10;">
                           {{$item->chiTietBaiViet}}</p>
                       </td>
                       <td>
-                        <a href="" class="btn btn-link text-dark px-3 mb-0">
+                        {{-- <a href="{{url('ql-images/'.$item->maBV)}}" class="mx-n1 btn btn-link text-dark px-3 mb-0">
+                          <i class="far fa-image text-2xl"></i>
+                        </a> --}}
+                        <a href="{{route('ql-hinhanh.edit',[$item->maBV])}}" class="mx-n1 btn btn-link text-dark px-3 mb-0">
                           <i class="far fa-image text-2xl"></i>
                         </a>
-                        <a href="" class="btn btn-link text-dark px-3 mb-0">
+                        <a href="" class="mx-n1 btn btn-link text-dark px-3 mb-0">
                           <i class="fas fa-film text-2xl"></i>
                         </a>
                       </td>
@@ -76,8 +82,11 @@
                             <i class="far fa-trash-alt me-2"></i>Delete
                           </button>
                         </form>
-                        <a href="{{route('ql-baiviet.edit',[$item->maBV])}}" class="btn btn-link text-dark px-3 mb-0">
+                        <a href="{{route('ql-baiviet.edit',[$item->maBV])}}" class="btn btn-link text-dark px-3 mx-n2 mb-0">
                           <i class="fas fa-pencil-alt text-dark me-2"></i>Edit
+                        </a>
+                        <a href="{{route('ql-baiviet.show',[$item->maBV])}}" class="btn btn-link  mx-n2 mb-0">
+                          <i class="fas fa-eye text-primary me-2"></i>
                         </a>
                       </td>
                         
@@ -87,7 +96,7 @@
                 </table>
 
                 <div class="p-2">
-                  {{-- {{$danhmuc->links()}} --}}
+                  {{$baiviet->links()}}
                 </div>  
 
               </div>

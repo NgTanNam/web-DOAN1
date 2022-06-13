@@ -36,7 +36,11 @@
                         <form method="POST" action="{{route('ql-baiviet.store')}}" class="needs-validation" enctype="multipart/form-data">
                             @csrf
                             
-                            
+                            <div class="form-group">
+                                <label for="uname">Tên bài viết:</label>
+                                <input type="text" class="form-control" value="" placeholder="Tên bài viết" name="tenBV" required>
+                                <div class="invalid-feedback">Vui lòng nhập tên bài viết.</div>
+                            </div>
                             <div class="form-group">
                                 <label>Danh mục:</label>
                                 <select name="idDM" class="form-select">

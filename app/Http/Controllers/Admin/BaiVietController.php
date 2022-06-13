@@ -9,6 +9,7 @@ use App\Models\DanhMucCon;
 use App\Models\BaiViet;
 use App\Models\HinhAnh;
 use App\Models\Video;
+use Illuminate\Support\Facades\File;
 
 class BaiVietController extends Controller
 {
@@ -19,7 +20,7 @@ class BaiVietController extends Controller
      */
     public function index()
     {
-        $baiviet = BaiViet::orderBy('maBV', 'DESC')->get();
+        $baiviet = BaiViet::orderBy('maBV','DESC')->paginate(4);
         return view('admin.baiviet.index')->with(compact('baiviet'));
     }
 
@@ -44,6 +45,7 @@ class BaiVietController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'tenBV' => 'required|unique:baiviet|max:255',
             'idDM' => 'required',
             'idSK' => 'required',
             'chiTietBaiViet' => 'required',
@@ -52,6 +54,7 @@ class BaiVietController extends Controller
         ]);
         $data = $request->all();
         $baiviet = new BaiViet();
+        $baiviet->tenBV = $data['tenBV'];
         $baiviet->maDM = $data['idDM'];
         $baiviet->maSK = $data['idSK'];
         $baiviet->chiTietBaiViet = $data['chiTietBaiViet'];
@@ -120,7 +123,9 @@ class BaiVietController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = BaiViet::find($id);
+        return view('admin.baiviet.show')->with(compact('data'));
+        
     }
 
     /**
@@ -131,7 +136,10 @@ class BaiVietController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = BaiViet::find($id);
+        $sukien = SuKien::all();
+        $danhmuc = DanhMucCon::all();
+        return view('admin.baiviet.edit')->with(compact('data','sukien','danhmuc'));
     }
 
     /**
@@ -143,7 +151,42 @@ class BaiVietController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'tenBV' => 'required|max:255',
+            'idDM' => 'required',
+            'idSK' => 'required',
+            'chiTietBaiViet' => 'required',
+            'trangThai' => 'required',
+            'image' => 'required',
+        ]);
+        // $data = $request->all();
+        // $baiviet = new BaiViet();
+        $baiviet = BaiViet::find($id);
+        $baiviet->tenBV = $data['tenBV'];
+        $baiviet->maDM = $data['idDM'];
+        $baiviet->maSK = $data['idSK'];
+        $baiviet->chiTietBaiViet = $data['chiTietBaiViet'];
+        $baiviet->trangThai = $data['trangThai'];
+        // them anh vao folder
+        $get_image = $request->image; 
+        if ($get_image) {
+            $paths = 'uploads/images/'.$baiviet->image;
+            if(file_exists($paths)) {
+                unlink($paths);
+            }
+            $path = 'uploads/images';
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.', $get_name_image));
+            $new_image = $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move($path,$new_image);
+
+            $baiviet->image=$new_image;
+        }
+        
+
+        $baiviet->save();
+
+        return redirect()->back()->with('status', 'Thêm bài viết thành công.');
     }
 
     /**
@@ -154,6 +197,35 @@ class BaiVietController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bviet = BaiViet::find($id);
+        $path = 'uploads/images/'.$bviet->image;
+        if(file_exists($path)) {
+            unlink($path);
+        }
+        BaiViet::find($id)->delete();
+
+        $hinhanh = HinhAnh::where('maBV',$id);
+        if ($hinhanh) {
+            foreach ($hinhanh as $item) {
+                $path = 'uploads/images/'.$item->hinhAnh;
+                File::delete(public_path($path));
+            }
+            HinhAnh::where('maBV',$id)->delete();
+        }
+
+        $video = Video::where('maBV',$id);
+        if ($video) {
+
+            foreach ($video as $item) {
+                $path = 'uploads/videos/'.$item->video;
+                File::delete(public_path($path));
+            }
+            Video::where('maBV',$id)->delete();
+        }
+
+
+        return redirect()->back();
     }
+   
 }
+

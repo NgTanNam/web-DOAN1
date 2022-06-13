@@ -10,7 +10,7 @@ class BaiViet extends Model
     use HasFactory;
     const UPDATED_AT = null;
     protected $fillable = [
-        'maDM', 'maSK', 'trangThai', 'chiTietBaiViet', 'image'
+        'tenBV','maDM', 'maSK', 'trangThai', 'chiTietBaiViet', 'image'
     ];
     protected $primaryKey = 'maBV';
     protected $table = 'baiviet';
@@ -22,4 +22,6 @@ class BaiViet extends Model
     public function sukien(){
         return $this->belongsTo('App\Models\SuKien','maSK','maSuKien');
     }
+
+    
 }

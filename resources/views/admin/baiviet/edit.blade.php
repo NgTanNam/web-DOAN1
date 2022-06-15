@@ -78,10 +78,22 @@
                             <div class="form-group">
                                 <label for="">Hình ảnh:</label>
                                 <input type="file" class="form-control" name="image" id="">
-                                <img src="{{asset('uploads/images/'.$data->image)}}" class="mt-2 border-radius-md" height="150" width="200" alt="">
+                                <img src="{{asset('uploads/images/'.$data->image)}}" class="mt-2 border-radius-md" width="50%" alt="">
                                 <div class="invalid-feedback">Hình ảnh phải có.</div>
                             </div>
                             
+                            <div class="form-group">
+                                
+                                    <label for="">Video:</label>
+                                    <input type="file" class="form-control" multiple name="videos[]" id="">
+                                @foreach ($video as $item)
+                                    <video width="50%" class="mt-3" controls>
+                                        <source src="{{asset('uploads/videos/'.$item->video)}}">
+                                    </video>
+                                    <div class="invalid-feedback">Vui lòng nhập tên sự kiện.</div>
+                                @endforeach
+                                
+                            </div>
                             
                             <button type="submit" class="btn btn-outline-primary btn-sm mb-0 mb-4">Cập nhập</button>
                         </form>

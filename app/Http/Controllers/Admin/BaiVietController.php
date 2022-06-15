@@ -139,7 +139,8 @@ class BaiVietController extends Controller
         $data = BaiViet::find($id);
         $sukien = SuKien::all();
         $danhmuc = DanhMucCon::all();
-        return view('admin.baiviet.edit')->with(compact('data','sukien','danhmuc'));
+        $video = Video::where('maBV', $id)->get();
+        return view('admin.baiviet.edit')->with(compact('data','sukien','danhmuc','video'));
     }
 
     /**
@@ -157,7 +158,6 @@ class BaiVietController extends Controller
             'idSK' => 'required',
             'chiTietBaiViet' => 'required',
             'trangThai' => 'required',
-            'image' => 'required',
         ]);
         // $data = $request->all();
         // $baiviet = new BaiViet();
@@ -186,7 +186,34 @@ class BaiVietController extends Controller
 
         $baiviet->save();
 
-        return redirect()->back()->with('status', 'Thêm bài viết thành công.');
+        $pathvideo = 'uploads/videos';
+        $videos = $request->file('videos');
+        if($videos){
+            $video = Video::where('maBV',$id)->get();
+            if ($video) {
+
+                foreach ($video as $item) {
+                    $path = 'uploads/videos/'.$item->video;
+                    File::delete(public_path($path));
+                }
+                Video::where('maBV',$id)->delete();
+            }
+            foreach($videos as $video){
+                $get_name_videos = $video->getClientOriginalName();
+                $name_videos = current(explode('.', $get_name_videos));
+                $new_videos = $name_videos.rand(0,9999).'.'.$video->getClientOriginalExtension();
+                $video->move($pathvideo,$new_videos);
+
+                $video = new Video();
+
+                $video->video=$new_videos;
+                $video->maBV=$baiviet->maBV;
+
+                $video->save();
+            }
+        }
+
+        return redirect()->back()->with('status', 'Cập nhập bài viết thành công.');
     }
 
     /**
@@ -204,7 +231,7 @@ class BaiVietController extends Controller
         }
         BaiViet::find($id)->delete();
 
-        $hinhanh = HinhAnh::where('maBV',$id);
+        $hinhanh = HinhAnh::where('maBV',$id)->get();
         if ($hinhanh) {
             foreach ($hinhanh as $item) {
                 $path = 'uploads/images/'.$item->hinhAnh;
@@ -213,7 +240,7 @@ class BaiVietController extends Controller
             HinhAnh::where('maBV',$id)->delete();
         }
 
-        $video = Video::where('maBV',$id);
+        $video = Video::where('maBV',$id)->get();
         if ($video) {
 
             foreach ($video as $item) {

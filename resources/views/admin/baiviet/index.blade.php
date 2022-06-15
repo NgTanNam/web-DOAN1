@@ -28,7 +28,7 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên bài viết</th>
                       {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Danh mục</th> --}}
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Chi tiết bài viết</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quản lý ảnh video</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quản lý ảnh mô tả</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Trạng thái</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quản lý</th>
                     </tr>
@@ -62,9 +62,7 @@
                         <a href="{{route('ql-hinhanh.edit',[$item->maBV])}}" class="mx-n1 btn btn-link text-dark px-3 mb-0">
                           <i class="far fa-image text-2xl"></i>
                         </a>
-                        <a href="" class="mx-n1 btn btn-link text-dark px-3 mb-0">
-                          <i class="fas fa-film text-2xl"></i>
-                        </a>
+                        
                       </td>
                       <td>
                           @if ($item->trangThai == 0)

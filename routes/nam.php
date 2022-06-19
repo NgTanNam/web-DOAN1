@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DanhMucConController;
 use App\Http\Controllers\Admin\BaiVietController;
 use App\Http\Controllers\Admin\SuKienController;
 use App\Http\Controllers\Admin\HinhAnhController;
+use App\Http\Controllers\Admin\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +18,7 @@ use App\Http\Controllers\Admin\HinhAnhController;
 |
 */
 
+Route::resource('/ql', DanhMucController::class);
 Route::resource('/ql-danhmuc', DanhMucController::class);
 Route::resource('/ql-danhmuccon', DanhMucConController::class);
 Route::resource('/ql-baiviet', BaiVietController::class);

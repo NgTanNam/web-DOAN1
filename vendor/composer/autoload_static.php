@@ -186,8 +186,8 @@ class ComposerStaticInit78e18111b8ea3bae5c2d61f6cb9d5fd0
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Whoops\\' => 
         array (
@@ -331,8 +331,8 @@ class ComposerStaticInit78e18111b8ea3bae5c2d61f6cb9d5fd0
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -518,6 +518,11 @@ class ComposerStaticInit78e18111b8ea3bae5c2d61f6cb9d5fd0
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Admin\\BaiVietController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/BaiVietController.php',
+        'App\\Http\\Controllers\\Admin\\DanhMucConController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DanhMucConController.php',
+        'App\\Http\\Controllers\\Admin\\DanhMucController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DanhMucController.php',
+        'App\\Http\\Controllers\\Admin\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/HomeController.php',
+        'App\\Http\\Controllers\\Admin\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/UserController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -528,7 +533,14 @@ class ComposerStaticInit78e18111b8ea3bae5c2d61f6cb9d5fd0
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Models\\BaiViet' => __DIR__ . '/../..' . '/app/Models/BaiViet.php',
+        'App\\Models\\DanhMuc' => __DIR__ . '/../..' . '/app/Models/DanhMuc.php',
+        'App\\Models\\DanhMucCon' => __DIR__ . '/../..' . '/app/Models/DanhMucCon.php',
+        'App\\Models\\HinhAnh' => __DIR__ . '/../..' . '/app/Models/HinhAnh.php',
+        'App\\Models\\SuKien' => __DIR__ . '/../..' . '/app/Models/SuKien.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\Video' => __DIR__ . '/../..' . '/app/Models/Video.php',
+        'App\\Models\\taiKhoanNguoiDung' => __DIR__ . '/../..' . '/app/Models/taiKhoanNguoiDung.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

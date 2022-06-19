@@ -46,7 +46,7 @@ class AuthController extends Controller
             'tenNguoiDung' => 'required|unique|max:255',
             'ho' => 'required|max:255',
             'ten' => 'required|max:255',
-            'email' => 'required|unique|email|max:255',
+            'email' => 'email|max:255',
             'matKhau' => 'required|unique|max:255',
         ]);
     }

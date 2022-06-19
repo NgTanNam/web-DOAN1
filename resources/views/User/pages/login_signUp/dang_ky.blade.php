@@ -30,11 +30,11 @@
                 <div class="form-row">
                     <div class="col" style="text-align: left; padding-left:0">
                         <label for="">Họ<span class="request">*</span></label>
-                        <input type="text" name="ho" class="form-control" required placeholder="Họ">
+                        <input type="text" name="ho" value="{{old('ho')}}" class="form-control" required placeholder="Họ">
                     </div>
                     <div class="col" style="text-align: left;">
                         <label for="">Tên<span class="request">*</span></label>
-                        <input type="text" name="ten" class="form-control" required placeholder="Tên">
+                        <input type="text" name="ten" value="{{old('ten')}}" class="form-control" required placeholder="Tên">
                     </div>
                 </div>
                 <div class="form-row">

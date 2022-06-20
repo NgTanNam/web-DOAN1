@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\taiKhoanNguoiDung;
-use App\Models\Roles;
+use App\Models\roles_tai_khoan_nguoi_dung;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,6 +35,12 @@ class AuthController extends Controller
             Session::put('tenNguoiDung', $request->tenNguoiDung);
             Session::put('ho', $request->ho);
             Session::put('ten', $request->ten);
+
+            $roles_user = new roles_tai_khoan_nguoi_dung();
+            $roles_user->roles_id_roles = '3';
+            $roles_user->tai_khoan_nguoi_dung_maNguoiDung = $customer_id;
+            $roles_user->save();
+
             return Redirect('/');
         } else {
             return Redirect()->back()->with('error', 'Mật khẩu không khớp!');

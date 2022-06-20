@@ -12,8 +12,8 @@ class taiKhoanNguoiDung extends Authenticatable
     use HasFactory;
     public $timestamps = false; //set time to false
     protected $fillable = [
-    	'tenNguoiDung',
-    	'ho',
+        'tenNguoiDung',
+        'ho',
         'ten',
         'email',
         'diaChi',
@@ -22,9 +22,10 @@ class taiKhoanNguoiDung extends Authenticatable
         'matKhau'
     ];
     protected $primaryKey = 'maNguoiDung';
- 	protected $table = 'taikhoannguoidung';
+    protected $table = 'taikhoannguoidung';
 
-     public function roles(){
+    public function roles()
+    {
         return $this->belongsToMany('App\Models\Roles');
     }
 
@@ -33,13 +34,12 @@ class taiKhoanNguoiDung extends Authenticatable
         return $this->matKhau;
     }
 
-//     public function hasAnyRoles($roles){
-
-//       return null !== $this->roles()->whereIn('name', $roles)->first();
-//    }
-//    public function hasRole($role){
-//        return null !== $this->roles()->where('name', $role)->first();
-
-//    }
-
+    public function hasAnyRoles($roles)
+    {
+        return null !== $this->roles()->whereIn('name', $roles)->first();
+    }
+    public function hasRole($role)
+    {
+        return null !== $this->roles()->where('name', $role)->first();
+    }
 }

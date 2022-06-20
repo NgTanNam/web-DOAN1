@@ -10,6 +10,7 @@
 <?php
 
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 $message = Session::get('message');
 if ($message) {

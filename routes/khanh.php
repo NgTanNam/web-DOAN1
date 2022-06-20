@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,11 +27,12 @@ Route::get('/', function () {
 
 
 //UserController
-// Route::get('/dang-nhap', [UserController::class, 'login_user']);
+Route::get('/dang-nhap', [UserController::class, 'login_user']);
 Route::get('/dang-xuat', [UserController::class, 'logout']);
-// Route::get('/dang-ky', [UserController::class, 'signUp']);
-// Route::post('/login-customer', [UserController::class, 'login_customer']);
-// Route::post('/add-customer', [UserController::class, 'create']);
+Route::get('/dang-ky', [UserController::class, 'signUp']);
+
+Route::post('/login-customer', [UserController::class, 'login_customer']);
+Route::post('/add-customer', [UserController::class, 'create']);
 Route::get('/tai-khoan/{id}', [UserController::class, 'show']);
 Route::get('/tai-khoan/cap-nhat-mat-khau/{id}', [UserController::class, 'show_password']);
 Route::post('/update-account/{id}', [UserController::class, 'update_account']);
@@ -44,9 +44,13 @@ Route::get('/blog', [HomeController::class, 'getAllblog']);
 Route::get('/lien-he', [HomeController::class, 'contact']);
 
 //Authentication roles
-Route::get('/dang-ky', [AuthController::class, 'signUp']);
-Route::post('/add-customer', [AuthController::class, 'create']);
-Route::get('/dang-nhap', [AuthController::class, 'login_user']);
-Route::post('/login-customer', [AuthController::class, 'login_customer']);
+// Route::get('/dang-ky', [AuthController::class, 'signUp']);
+// Route::post('/add-customer', [AuthController::class, 'create']);
+// Route::get('/dang-nhap', [AuthController::class, 'login_user']);
+// Route::post('/login-customer', [AuthController::class, 'login_customer']);
 
-
+//phân quyền
+Route::group(['middleware'=>'auth.roles'], function () {
+    Route::resource('/ql-taikhoan', UserController::class)->middleware('auth.roles');
+    Route::post('/assign-roles', [UserController::class, 'assign_roles'])->middleware('auth.roles');
+});

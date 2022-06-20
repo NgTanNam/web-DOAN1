@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\taiKhoanNguoiDung;
+use Facade\FlareClient\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use App\Models\Roles;
+use App\Models\roles_tai_khoan_nguoi_dung;
 
 class UserController extends Controller
 {
@@ -15,6 +18,18 @@ class UserController extends Controller
     {
         $customer = taiKhoanNguoiDung::find($id);
         return view('User.pages.account.show_account', compact('customer'));
+    }
+
+    public function index()
+    {
+        $account = taiKhoanNguoiDung::with('roles')->orderBy('maNguoiDung', 'DESC')->paginate(5);
+        // dd($account);
+        return view('admin.taiKhoanNguoiDung.index')->with(compact('account'));
+    }
+
+    public function edit($id)
+    {
+        echo ('edit');
     }
 
     public function update_account($id, Request $request)
@@ -72,23 +87,34 @@ class UserController extends Controller
     public function login_customer(Request $request)
     {
         $email = $request->email_account;
-        $password = $request->password_account;
-        $result = taiKhoanNguoiDung::where('email', $email)->where('matKhau', $password)->first();
-        if(!$result){
-            $result = taiKhoanNguoiDung::where('sdt', $email)->where('matKhau', $password)->first();
+        $password = md5($request->password_account);
+        $result = Auth::attempt(['email' => $email,'matKhau' => $password]);
+        // if(!$result){
+        //     $result = Auth::attempt(['tenNguoiDung' => $email,'matKhau' => md5($password)]);
+        // }
+        // if(!$result){
+        //     $result = Auth::attempt(['sdt' => $email,'matKhau' => md5($password)]);
+        // }
+        if ($result){
+            return redirect('/');
+        }else{
+            return redirect('/dang-nhap')->with('message', 'Tài khoản đăng nhập không tồn tại!');
         }
-        if(!$result){
-            $result = taiKhoanNguoiDung::where('tenNguoiDung', $email)->where('matKhau', $password)->first();
-        }
-        if ($result) {
-            Session::put('maNguoiDung', $result->maNguoiDung);
-            Session::put('tenNguoiDung', $result->tenNguoiDung);
-            Session::put('ho', $result->ho);
-            Session::put('ten', $result->ten);
-            return Redirect('/');
-        } else {
-            return Redirect()->back()->with('error', 'Tài khoản đăng nhập không tồn tại');
-        }
+
+        // $result = taiKhoanNguoiDung::where('email', $email)->where('matKhau', $password)->first();
+        // if(!$result){
+        //     $result = taiKhoanNguoiDung::where('sdt', $email)->where('matKhau', $password)->first();
+        // }
+        // if(!$result){
+        //     $result = taiKhoanNguoiDung::where('tenNguoiDung', $email)->where('matKhau', $password)->first();
+        // }
+        // if ($result) {
+        //     Auth::attempt(['email' => $result->email,'matKhau' => md5($password)]);
+        //     return Redirect('/');
+            
+        // } else {
+        //     return Redirect()->back()->with('error', 'Tài khoản đăng nhập không tồn tại');
+        // }
     }
 
     public function signUp()
@@ -109,20 +135,58 @@ class UserController extends Controller
         $data['ngaySinh'] = $request->ngaySinh;
         $xacNhanMatKhau = $request->password_confirm;
         if ($data['matKhau'] ==  $xacNhanMatKhau) {
+            $data['matKhau'] = md5($request->matKhau);
             $customer_id = taiKhoanNguoiDung::insertGetId($data);
             Session::put('maNguoiDung', $customer_id);
             Session::put('tenNguoiDung', $request->tenNguoiDung);
             Session::put('ho', $request->ho);
             Session::put('ten', $request->ten);
+
+            $roles_user = new roles_tai_khoan_nguoi_dung();
+            $roles_user->roles_id_roles = '3';
+            $roles_user->tai_khoan_nguoi_dung_maNguoiDung = $customer_id;
+            $roles_user->save();
+
             return Redirect('/');
         } else {
             return Redirect()->back()->with('error', 'Mật khẩu không khớp!');
         }
     }
+    public function validation($request)
+    {
+        return $this->validate($request, [
+            'tenNguoiDung' => 'required|unique|max:255',
+            'ho' => 'required|max:255',
+            'ten' => 'required|max:255',
+            'email' => 'email|max:255',
+            'matKhau' => 'required|unique|max:255',
+        ]);
+    }
+
     public function logout()
     {
         // Session::forget('maNguoiDung');
         Auth::logout();
         return Redirect('/');
+    }
+
+    public function assign_roles(Request $request)
+    {
+        if (Auth::id() == $request->admin_id) {
+            return redirect()->back()->with('message', 'Bạn không được phân quyền chính mình');
+        }
+        $data = $request->all();
+        $user = taiKhoanNguoiDung::where('email', $data['admin_email'])->first();
+        $user->roles()->detach();
+        if ($request['author_role']) {
+            $user->roles()->attach(Roles::where('name', 'CTV')->first());
+        }
+        if ($request['user_role']) {
+            $user->roles()->attach(Roles::where('name', 'User')->first());
+        }
+        if ($request['admin_role']) {
+            $user->roles()->attach(Roles::where('name', 'Admin')->first());
+        }
+        return redirect()->back()->with('message', 'Phân quyền thành công');
     }
 }

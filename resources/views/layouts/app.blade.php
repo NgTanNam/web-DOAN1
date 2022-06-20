@@ -38,6 +38,7 @@
       <hr class="horizontal dark mt-0">
       <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
+          @hasrole(['Admin'])
           <li class="nav-item">
             <a class="nav-link " href="">
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -62,15 +63,8 @@
               <span class="nav-link-text ms-1">Quản lý Sự Kiện</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link " href="{{route('ql-baiviet.index')}}">
-              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Quản lý bài viết</span>
-            </a>
-          </li>
-          {{-- <li class="nav-item">
+          {{--
+            <li class="nav-item">
                 <a class="nav-link " href="../pages/virtual-reality.html">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                     <i class="ni ni-app text-info text-sm opacity-10"></i>
@@ -85,8 +79,25 @@
                   </div>
                   <span class="nav-link-text ms-1">RTL</span>
                 </a>
-              </li> --}}
-
+              </li> 
+            --}}
+          <li class="nav-item">
+            <a class="nav-link " href="{{route('ql-taikhoan.index')}}">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-app text-info text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Quản lý Tài Khoản</span>
+            </a>
+          </li>
+          @endhasrole
+          <li class="nav-item">
+            <a class="nav-link " href="{{route('ql-baiviet.index')}}">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Quản lý bài viết</span>
+            </a>
+          </li>
         </ul>
       </div>
 
@@ -119,10 +130,10 @@
 
                     use Illuminate\Support\Facades\Auth;
 
-                    $name = Auth::user()->ho .' '. Auth::user()->ten;
-                    if($name){
+                    $name = Auth::user()->ho . ' ' . Auth::user()->ten;
+                    if ($name) {
                       echo ($name);
-                    }else{
+                    } else {
                       echo ('Đăng Nhập');
                     }
                     ?>

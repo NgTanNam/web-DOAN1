@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Session;
             </a>
             <a href="{{URL::to('/lien-he')}}" class="nav-link"><button class="w3-button">Liên Hệ</button></a>
             @if (Auth::user())
-            <a href="{{URL::to('/tai-khoan/'.Session::get('maNguoiDung'))}}" class="nav-link">
+            <a href="{{URL::to('/tai-khoan/'.Auth::user()->maNguoiDung)}}" class="nav-link">
                 <div class="w3-dropdown-hover">
                     <button class="w3-button">
                         <?php
@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Session;
                         ?>
                     </button>
                     <div class="w3-dropdown-content w3-bar-block">
-                        <a href="{{URL::to('/tai-khoan/'.Session::get('maNguoiDung'))}}" class="w3-bar-item w3-button w3-mobile">Tài khoản cá nhân</a>
+                        <a href="{{URL::to('/tai-khoan/'.Auth::user()->maNguoiDung)}}" class="w3-bar-item w3-button w3-mobile">Tài khoản cá nhân</a>
                         <a href="{{URL::to('/dang-xuat')}}" class="w3-bar-item w3-button w3-mobile">Đăng xuất</a>
                     </div>
                 </div>

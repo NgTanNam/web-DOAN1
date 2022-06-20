@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\taiKhoanNguoiDung;
 use App\Models\Roles;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -51,4 +51,37 @@ class AuthController extends Controller
         ]);
     }
 
+    public function login_user()
+    {
+        return view('User.pages.login_signUp.dang_nhap');
+    }
+    public function login_customer(Request $request)
+    {
+        $email = $request->email_account;
+        $password = $request->password_account;
+        if (Auth::attempt(['email' => $email,'matKhau' => md5($password)])){
+            // echo (Auth::attempt(['email' => $request->email_account,'matKhau' => $request->password_account]));
+            return redirect('/');
+        }else{
+            // echo (Auth::attempt(['email' => $request->email_account,'matKhau' => $request->password_account]));
+            return redirect('/dang-nhap')->with('message', 'Tài khoản đăng nhập không tồn tại!');
+        }
+
+        // $result = taiKhoanNguoiDung::where('email', $email)->where('matKhau', $password)->first();
+        // if(!$result){
+        //     $result = taiKhoanNguoiDung::where('sdt', $email)->where('matKhau', $password)->first();
+        // }
+        // if(!$result){
+        //     $result = taiKhoanNguoiDung::where('tenNguoiDung', $email)->where('matKhau', $password)->first();
+        // }
+        // if ($result) {
+        //     Session::put('maNguoiDung', $result->maNguoiDung);
+        //     Session::put('tenNguoiDung', $result->tenNguoiDung);
+        //     Session::put('ho', $result->ho);
+        //     Session::put('ten', $result->ten);
+        //     return Redirect('/');
+        // } else {
+        //     return Redirect()->back()->with('error', 'Tài khoản đăng nhập không tồn tại');
+        // }
+    }
 }

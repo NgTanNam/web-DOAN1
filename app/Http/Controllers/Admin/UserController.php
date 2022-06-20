@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\taiKhoanNguoiDung;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
@@ -120,7 +121,8 @@ class UserController extends Controller
     }
     public function logout()
     {
-        Session::forget('maNguoiDung');
+        // Session::forget('maNguoiDung');
+        Auth::logout();
         return Redirect('/');
     }
 }

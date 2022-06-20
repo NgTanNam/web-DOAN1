@@ -1,7 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Session;
 ?>
+
+
 <div class="container flex">
     <a href="{{URL::to('/')}}" class="site-brand">
         Du Lịch<span> Đà Thành</span>
@@ -14,8 +18,8 @@ use Illuminate\Support\Facades\Session;
             <i class="fas fa-times"></i>
         </button>
         <div class="w3-bar navbar-nav ">
-            <a href="{{URL::to('/')}}"class="nav-link"><button class="w3-button">Trang Chủ</button></a>
-            <a href="{{URL::to('/bo-suu-tap')}}"class="nav-link"><button class="w3-button">Bộ Sưu Tập</button></a>
+            <a href="{{URL::to('/')}}" class="nav-link"><button class="w3-button">Trang Chủ</button></a>
+            <a href="{{URL::to('/bo-suu-tap')}}" class="nav-link"><button class="w3-button">Bộ Sưu Tập</button></a>
             <a href="{{URL::to('/blog')}}" class="nav-link">
                 <div class="w3-dropdown-hover">
                     <button class="w3-button">Blog</button>
@@ -25,11 +29,18 @@ use Illuminate\Support\Facades\Session;
                     </div>
                 </div>
             </a>
-            <a href="{{URL::to('/lien-he')}}"class="nav-link"><button class="w3-button">Liên Hệ</button></a>
-            @if (Session::get('maNguoiDung'))
+            <a href="{{URL::to('/lien-he')}}" class="nav-link"><button class="w3-button">Liên Hệ</button></a>
+            @if (Auth::user())
             <a href="{{URL::to('/tai-khoan/'.Session::get('maNguoiDung'))}}" class="nav-link">
                 <div class="w3-dropdown-hover">
-                    <button class="w3-button"><?php echo (Session::get('ho') . ' ' . Session::get('ten')) ?></button>
+                    <button class="w3-button">
+                        <?php
+                        $name = Auth::user()->ho . ' ' . Auth::user()->ten;
+                        if ($name) {
+                            echo ($name);
+                        }
+                        ?>
+                    </button>
                     <div class="w3-dropdown-content w3-bar-block">
                         <a href="{{URL::to('/tai-khoan/'.Session::get('maNguoiDung'))}}" class="w3-bar-item w3-button w3-mobile">Tài khoản cá nhân</a>
                         <a href="{{URL::to('/dang-xuat')}}" class="w3-bar-item w3-button w3-mobile">Đăng xuất</a>
@@ -37,7 +48,7 @@ use Illuminate\Support\Facades\Session;
                 </div>
             </a>
             @else
-            <a href="{{URL::to('/dang-nhap')}}" class="w3-bar-item w3-button w3-mobile">Đăng Nhập</a>
+            <a href="{{URL::to('/dang-nhap')}}" class="nav-link"><button class="w3-button">Đăng Nhập</button></a>
             @endif
         </div>
     </div>

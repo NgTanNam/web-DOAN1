@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'customuser',
     ],
 
     /*
@@ -38,7 +38,12 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
+            'provider' => 'customuser',
+        ],
+        'api' => [
+            'driver' => 'token',
             'provider' => 'users',
+            'hash' => false,
         ],
     ],
 
@@ -65,10 +70,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'customuser' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\taiKhoanNguoiDung::class,
+        ],
     ],
 
     /*
@@ -92,6 +97,11 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
+        ],
+        'customusers' => [
+            'provider' => 'customusers',
+            'table' => 'password_resets',
+            'expire' => 3600,
         ],
     ],
 

@@ -49,8 +49,8 @@ class EloquentUserProvider implements UserProvider
         $model = $this->createModel();
 
         return $this->newModelQuery($model)
-                    ->where($model->getAuthIdentifierName(), $identifier)
-                    ->first();
+            ->where($model->getAuthIdentifierName(), $identifier)
+            ->first();
     }
 
     /**
@@ -65,17 +65,18 @@ class EloquentUserProvider implements UserProvider
         $model = $this->createModel();
 
         $retrievedModel = $this->newModelQuery($model)->where(
-            $model->getAuthIdentifierName(), $identifier
+            $model->getAuthIdentifierName(),
+            $identifier
         )->first();
 
-        if (! $retrievedModel) {
+        if (!$retrievedModel) {
             return;
         }
 
         $rememberToken = $retrievedModel->getRememberToken();
 
         return $rememberToken && hash_equals($rememberToken, $token)
-                        ? $retrievedModel : null;
+            ? $retrievedModel : null;
     }
 
     /**
@@ -106,9 +107,11 @@ class EloquentUserProvider implements UserProvider
      */
     public function retrieveByCredentials(array $credentials)
     {
-        if (empty($credentials) ||
-           (count($credentials) === 1 &&
-            Str::contains($this->firstCredentialKey($credentials), 'password'))) {
+        if (
+            empty($credentials) ||
+            (count($credentials) === 1 &&
+                Str::contains($this->firstCredentialKey($credentials), 'password'))
+        ) {
             return;
         }
 
@@ -156,9 +159,14 @@ class EloquentUserProvider implements UserProvider
      */
     public function validateCredentials(UserContract $user, array $credentials)
     {
-        $plain = $credentials['password'];
+        $plain = $credentials['matKhau'];
+        if (($plain) ==  $user->getAuthPassword()) {
+            return true;
+        } else {
+            return false;
+        }
+        // return $this->hasher->check($plain, $user->getAuthPassword());
 
-        return $this->hasher->check($plain, $user->getAuthPassword());
     }
 
     /**
@@ -170,8 +178,8 @@ class EloquentUserProvider implements UserProvider
     protected function newModelQuery($model = null)
     {
         return is_null($model)
-                ? $this->createModel()->newQuery()
-                : $model->newQuery();
+            ? $this->createModel()->newQuery()
+            : $model->newQuery();
     }
 
     /**
@@ -181,7 +189,7 @@ class EloquentUserProvider implements UserProvider
      */
     public function createModel()
     {
-        $class = '\\'.ltrim($this->model, '\\');
+        $class = '\\' . ltrim($this->model, '\\');
 
         return new $class;
     }

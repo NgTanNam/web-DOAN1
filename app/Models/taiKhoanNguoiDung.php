@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class taiKhoanNguoiDung extends Model
+class taiKhoanNguoiDung extends Authenticatable
 {
     use HasFactory;
     public $timestamps = false; //set time to false
@@ -26,10 +28,10 @@ class taiKhoanNguoiDung extends Model
         return $this->belongsToMany('App\Models\Roles');
     }
 
-//     public function getAuthPassword()
-//     {
-//         return $this->admin_password;
-//     }
+    public function getAuthPassword()
+    {
+        return $this->matKhau;
+    }
 
 //     public function hasAnyRoles($roles){
 

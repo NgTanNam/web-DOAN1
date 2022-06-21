@@ -22,6 +22,9 @@ class BaiViet extends Model
     public function sukien(){
         return $this->belongsTo('App\Models\SuKien','maSK','maSuKien');
     }
-
+    public function images()
+    {
+        return $this->hasMany(HinhAnh::class,'maBV','maBV');
+    }
     
 }

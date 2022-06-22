@@ -1,171 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('User.layout_web')
+@section('content')
+<link rel="stylesheet" href="frontend/css/style.css">
+<link rel="stylesheet" href="frontend/style/home/style.css">
+<base href="{{ asset('public') }}">
 
-<head>
-    <base href="{{ asset('public') }}">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
-    <link rel="icon" type="image/png" href="{{ asset('admin/img/logo_dn.png') }}">
-
-
-    <link rel="stylesheet" href="frontend/bootstrap/css/bootstrap.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
-        rel="stylesheet">
-
-
-
-
-    <link rel="stylesheet" href="frontend/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="frontend/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
-
-
-
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.4.0/socket.io.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.11.0/echo.common.min.js"></script>
-
-
-</head>
-
-<body>
-    @include('User.element.header_old')
-
-    @yield('content')
-    {{-- <div>
-        <nav id="navbar_main" class="navbar navbar-expand-lg navbar-light ">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="frontend/image/header/logo.png" alt="">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarScroll">
-                    <ul class="navbar-nav me-auto my-2 my-lg-0 nl" style="--bs-scroll-height: 100px;">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Trang Chủ</a>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">Danh Mục
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Bài viết</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Liên hệ</a>
-                        </li>
-                        <li class="nav-item">
-                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
-                        </li>
-                        <li class="nav-item dropdown nav-item-icon">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false"> <i
-                                    class="fa-brands fa-rocketchat"></i>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown nav-item-icon">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false"><i
-                                    class="fa-solid fa-square-envelope"></i>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" href="#">Action <i
-                                            class="fa-solid fa-circle-dot"></i></a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-
-
-                    <div>
-                        <ul class="navbar-nav me-auto my-2 my-lg-0 nl" style="--bs-scroll-height: 100px;">
-
-                            <li class="nav-item  nav-item-icon">
-
-                            </li>
-                            <li class="nav-item  nav-item-icon">
-                                <img src="frontend/image/header/facebook-app-symbol.png" alt="">
-                            </li>
-                            <li class="nav-item  nav-item-icon">
-                                <img src="frontend/image/header/twitter.png" alt="">
-                            </li>
-                            <li class="nav-item  nav-item-icon">
-                                <img src="frontend/image/header/instagram.png" alt="">
-                            </li>
-
-
-
-                        </ul>
-                    </div>
-
-
-
-                    <div style="background-color: #C82B2B;height: 100%;padding: 3px;border-radius:10px 0px 0px 10px;">
-                        <ul class="navbar-nav me-auto my-2 my-lg-0 nl" style="--bs-scroll-height: 100px;">
-                            <li class="nav-item personal_item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                                    style="color: #fff">
-
-                                    <img id="avatar_personale" src="  {{ optional(auth()->user())->avt }}"
-                                        alt=""
-                                        style="  vertical-align: middle;
-                                        width: 50px;
-                                        height: 50px;
-                                        border-radius: 50%;">
-
-                                    {{ optional(auth()->user())->ten }}
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </nav>
-    </div> --}}
-    {{-- <div style="padding-top:95px"></div>
+    <div style="padding-top:95px"></div>
     <div>
         <div class="container" id="bai_viet" style="top:80px;padding-top:10px">
             <!-- Tác Giả và thông tin toihwiof giand ăng -->
@@ -177,21 +16,22 @@
 
                         <img id="avatar_personale"
                             src="https://cdnb.artstation.com/p/assets/images/images/019/697/901/large/wl-op-36s2.jpg?1564628205"
-                            alt="" style="  vertical-align: middle;
+                            alt=""
+                            style="  vertical-align: middle;
                 width: 50px;
                 height: 50px;
                 border-radius: 50%;">
                     </a>
                 </div>
                 <div id="name_and_time">
-                    <div id="name_author">{{ optional(auth()->user())->ho}} {{ optional(auth()->user())->ten}}</div>
+                    <div id="name_author">{{ optional(auth()->user())->ho }} {{ optional(auth()->user())->ten }}</div>
                     <p id="time_postion" style="display: inline">Ngày {{ $baiViet->created_at }}</p><br>
 
                 </div>
 
             </div>
 
-
+            <h2 style="text-align: center;font-weight: bold">{{$baiViet->tenBV}}</h3>
             <section class="ftco-section">
                 <div class="container">
                     <div class="row">
@@ -206,12 +46,12 @@
                                                 style="background-image: url(http://localhost/web-DOAN1/public/uploads/images/{{ $item->hinhAnh }});">
                                                 <a href="#"
                                                     class="icon d-flex align-items-center justify-content-center">
-                                                    <span class="ion-ios-search"></span>
+                                                    <i class="fa-solid fa-magnifying-glass"></i>
                                                 </a>
                                             </div>
                                             <div class="text pt-3 w-100 text-center">
-                                                <h3><a href="#">Work 01</a></h3>
-                                                <span>Web Design</span>
+                                                {{-- <h3><a href="#">Work 01</a></h3>
+                                                <span>Web Design</span> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -225,18 +65,18 @@
                 </div>
             </section>
 
-            <div  style="margin: 20px" id="chi_tiet_bai_viet">
-         
-               
-{!!html_entity_decode($baiViet->chiTietBaiViet);
-!!}
+            <div style="margin: 20px" id="chi_tiet_bai_viet">
+
+
+                {!! html_entity_decode($baiViet->chiTietBaiViet) !!}
 
 
 
 
 
             </div>
-            <div style="margin: 20px"><img src="frontend/image/BaiViet/not-favorite-yet.png" width="30px" alt=""> 1280
+            <div style="margin: 20px"><img src="frontend/image/BaiViet/not-favorite-yet.png" width="30px" alt="">
+                1280
                 <img src="frontend/image/BaiViet/bookmark.png" width="30px" alt="">
             </div>
             <hr>
@@ -244,7 +84,7 @@
 
 
             <div id="app">
-                <label style="display: inline;" id="trang-thai-cmt" for="">Trang thai <button type="button"
+                <label style="display: none;" id="trang-thai-cmt" for="">Đang sửa bình luận ...<button type="button"
                         @click="changeTypeToCreate" class="btn btn-light"><img src="frontend/image/BaiViet/close.png"
                             width="15px" alt=""></button>
                 </label>
@@ -253,20 +93,21 @@
                         <a class="nav-link " href="#" id="a_avatar" role="button" data-bs-toggle=""
                             aria-expanded="false" style="color: #000000;font-size: 19px;">
 
-                            <img id="avatar_personale" src="    {{ optional(auth()->user())->avt }}" alt="" style="  vertical-align: middle;
+                            <img id="avatar_personale" src="    {{ optional(auth()->user())->avt }}" alt=""
+                                style="  vertical-align: middle;
         width: 45px;
         height: 45px;
         border-radius: 50%;">
                         </a>
                     </div>
                     <div id="input_cmt">
-                        <textarea v-model="message" @keyup.enter="sendMessage" aria-label="With textarea" rows="1"></textarea>
+                        <textarea v-model="message" @keyup.enter="sendMessage" aria-label="With textarea" style="" rows="1"></textarea>
                     </div>
-                    <button type="button" class="btn btn-light"><img src="frontend/image/BaiViet/attachment.png" width="25px"
-                            alt=""></button>
+                    <button type="button" class="btn btn-light"><img src="frontend/image/BaiViet/attachment.png"
+                            width="25px" alt=""></button>
 
                     <button @click="sendMessage" type="button" class="btn btn-light"><img
-                            src="image/BaiViet/send-message.png" width="25px" alt=""></button>
+                            src="frontend/image/BaiViet/send-message.png" width="25px" alt=""></button>
                 </div>
 
                 <div>
@@ -275,27 +116,32 @@
                     <div id='list_comment' class="comment-widgets m-b-20">
                         @foreach (App\Models\BinhLuan::orderBy('id', 'DESC')->get() as $item)
                             <div id="comment_id_{{ $item->id }}" class="d-flex flex-row comment-row ">
-                                <div class="p-2"><span class="round"><img
-                                            src="{{$item->nguoiDung->avt}}" alt="user" width="50"></span></div>
+                                <div class="p-2"><span class="round"><img src="{{ $item->nguoiDung->avt }}"
+                                            alt="user" width="50"></span></div>
                                 <div class="comment-text active w-100">
-                                    <h5>{{$item->nguoiDung->ho.' '.$item->nguoiDung->ten}}</h5>
+                                    <h5>{{ $item->nguoiDung->ho . ' ' . $item->nguoiDung->ten }}</h5>
                                     <div class="comment-footer">
-                                        <span class="date">{{date_format($item->created_at, 'H:i d-m-Y') }}</span>
-                                         <span
-                                            class="action-icons active">
+                                        <span class="date">{{ date_format($item->created_at, 'H:i d-m-Y') }}</span>
+                                        <span class="action-icons active">
                                             @if (auth()->user()->maNguoiDung == $item->ma_nguoi_dung)
                                                 <p
                                                     @click="changeTypeToUpdate({{ $item->id }},'{{ $item->noi_dung }}')">
-                                                    <i class="fa fa-pencil"></i></p>
-                                                <p @click="deleteMessage({{$item->id}})" href="#" data-abc="true"><i
-                                                        class="fa-solid fa-trash-can text-danger"></i></p>
+                                                    <i class="fa fa-pencil"></i>
+                                                </p>
+                                                <p @click="deleteMessage({{ $item->id }})" href="#"
+                                                    data-abc="true"><i class="fa-solid fa-trash-can text-danger"></i></p>
                                             @endif
 
                                             <p href="#" data-abc="true"><i class="fa fa-heart text-danger"></i></p>
-                                            <a href="#" data-abc="true" style="display: flex; float: right; text-decoration-line: none;"><i class="fa fa-heart" style="text-decoration-line: none; margin-top: 4px;margin-right: 5px"></i>0</a>
+                                            <a href="#" data-abc="true"
+                                                style="display: flex; float: right; text-decoration-line: none;"><i
+                                                    class="fa fa-heart"
+                                                    style="text-decoration-line: none; margin-top: 4px;margin-right: 5px"></i>0</a>
                                         </span>
                                     </div>
-                                    <p id='comment_content_{{$item->id}}' class="m-b-5 m-t-10">{{ $item->noi_dung }}</p>
+                                    
+                                    <p  class="m-b-5 m-t-10">
+                                        {!! $item->noi_dung !!}</p>
                                 </div>
                             </div>
                         @endforeach
@@ -305,10 +151,6 @@
                                         alt="user" width="50"></span></div>
                             <div class="comment-text w-100">
                                 <h5>Samso Nagaro</h5>
-
-
-
-
                                 <div class="comment-footer">
                                     <span class="date">April 14, 2019</span>
                                     <span class="label label-info">Pending</span> <span class="action-icons">
@@ -327,16 +169,16 @@
                         </div>
 
                         <div class="d-flex flex-row comment-row ">
-                            <div class="p-2"><span class="round"><img
-                                        src="https://i.imgur.com/tT8rjKC.jpg" alt="user" width="50"></span></div>
+                            <div class="p-2"><span class="round"><img src="https://i.imgur.com/tT8rjKC.jpg"
+                                        alt="user" width="50"></span></div>
                             <div class="comment-text active w-100">
                                 <h5>Jonty Andrews</h5>
                                 <div class="comment-footer">
                                     <span class="date">March 13, 2020</span>
-                                    <span class="label label-success">Approved</span> <span
-                                        class="action-icons active">
+                                    <span class="label label-success">Approved</span> <span class="action-icons active">
                                         <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a>
-                                        <a href="#" data-abc="true"><i class="fa fa-rotate-right text-success"></i></a>
+                                        <a href="#" data-abc="true"><i
+                                                class="fa fa-rotate-right text-success"></i></a>
                                         <a href="#" data-abc="true"><i class="fa fa-heart text-danger"></i></a>
                                     </span>
                                 </div>
@@ -366,55 +208,11 @@
         <span class="close">&times;</span>
         <img class="modal-content" id="img01">
         <div id="caption"></div>
-    </div> --}}
-    @include('User.element.footer_old')
-
-    <div>Chaan</div>
-    <script src="frontend/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    {{-- <script src="frontend/js/jquery.min.js"></script> --}}
-    <script src="frontend/js/popper.js"></script>
-    <script src="frontend/js/bootstrap.min.js"></script>
-    <script src="frontend/js/owl.carousel.min.js"></script>
-    <script src="frontend/js/main.js"></script>
-    {{-- <script>
-        var prevScrollpos = window.pageYOffset;
-        window.onscroll = function() {
-            var currentScrollPos = window.pageYOffset;
-            if (prevScrollpos > currentScrollPos) {
-                // var el = document.getElementById("navbar_main");
-                // el.style.animationName = "example2"
-                // document.getElementById("navbar_main").style.top = "0";
-                // $("#navbar_main").animate({top: '0px'});
-                $("#navbar_main").slideDown();
-            } else {
-                var el = document.getElementById("navbar_main");
-
-                $("#navbar_main").slideUp();
-                // el.style.top = "-72px";
-
-                el
-            }
-            prevScrollpos = currentScrollPos;
-        }
-        $("textarea").each(function() {
-            this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
-        }).on("input", function() {
-            this.style.height = "auto";
-            this.style.height = (this.scrollHeight) + "px";
-        });
-    </script> --}}
+    </div>
 
 
-
-
-
-
-
-
-
-
-    {{-- <script>
+   
+    <script>
         // var modal = document.getElementById("myModal");
 
         // // Get the image and insert it inside the modal - use its "alt" text as a caption
@@ -588,10 +386,5 @@
             },
 
         })
-    </script> --}}
-
-
-
-</body>
-
-</html>
+    </script>
+@endsection

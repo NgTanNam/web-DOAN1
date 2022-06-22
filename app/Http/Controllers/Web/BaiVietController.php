@@ -17,7 +17,7 @@ class BaiVietController extends Controller
     function getViewBaiVietController($id){
         // return Auth::user()->nguoiDung;
         $baiViet = BaiViet::find($id);
-        return view('User.layout_web', ['baiViet' => $baiViet, 'idBaiViet' => $id]);
+        return view('User.pages.BaiViet.bai_viet', ['baiViet' => $baiViet, 'idBaiViet' => $id]);
     }
 
 

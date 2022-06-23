@@ -1,0 +1,176 @@
+
+.footer {
+    background-color: #843333;
+    width: 100%;
+}
+
+.footer__title {
+    margin: 0 20px;
+    color: #fff;
+    font-size: 18px;
+    padding-top: 10px;
+}
+
+.footer__title-line {
+    height: 5px;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    margin-top: 20px;
+}
+.footer__title--text {
+    text-align: center;
+    
+}
+.footer__title--text-top {
+    margin-bottom: 5px;
+}
+.footer__title--text-bottom {
+    font-weight: 700;
+}
+
+.footer__content {
+    justify-content: space-between;
+    margin: 15px 20px 0px;
+}
+
+.footer__content--address {
+    color: #fff;
+    
+}
+
+.footer__content--title {
+    color: #DF8A60;
+    
+}
+
+.footer__content--address hr {
+    height:1px;
+    border-width:0;
+    background-color:rgb(255, 255, 255);
+}
+
+.footer__content--address-1, 
+.footer__content--address-2,
+.footer__content--address-3 , 
+.footer__content--address-4 ,
+.footer__content--address-5 {
+    margin: 5px 0px;
+}
+
+
+.footer__content--address-3 , 
+.footer__content--address-4 ,
+.footer__content--address-5 {
+    font-weight: bold;
+}
+
+
+
+.footer__content--contact {
+    color: #fff;
+    
+}
+
+
+.footer__content--contact-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer__content--contact-input {
+    height: 80px;
+    word-wrap: break-word;
+    word-break: break-all;
+    margin: 10px 0;
+}
+
+.footer__content--contact-submit {
+    width: 80px;
+    background-color: #843333;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 3px 5px;
+    cursor: pointer;
+}
+
+.footer__content--contact-submit:hover {
+    opacity: .5;
+}
+
+
+.footer__content--support {
+    color: #fff;
+
+}
+
+.footer__content--support-tell {
+    display: flex;
+}
+
+.footer__content--support-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.footer__content--support-text {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.footer__content--support-text1 {
+    margin-bottom: 5px;
+}
+
+.footer__content--support-group-logo {
+    display: flex;
+    margin-top: 10px;
+}
+
+.footer__content--support-group-logo img {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+}
+
+.footer__content--support-group-logo img:hover {
+    animation-name: spin;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+
+.footer__utilities {
+    margin: 20px 20px 0;
+}
+
+.footer__utilities--child {
+    color: #fff;
+    font-size: 20px;
+}
+.footer__utilities--child ul li {
+    margin: 5px 0;
+}
+
+
+.footer__utilities--child ul li a {
+    color: #fff;
+    text-decoration: none;
+} 
+
+.footer__utilities--child ul li a:hover {
+    padding-left: 12px;
+    transition: .3s;
+}
+
+
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}

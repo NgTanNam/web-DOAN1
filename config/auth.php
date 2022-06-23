@@ -101,7 +101,7 @@ return [
         'customusers' => [
             'provider' => 'customusers',
             'table' => 'password_resets',
-            'expire' => 3600,
+            'expire' => 10800,
         ],
     ],
 

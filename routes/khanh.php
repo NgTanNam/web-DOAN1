@@ -27,7 +27,7 @@ Route::get('/', function () {
 
 
 //UserController
-Route::get('/dang-nhap', [UserController::class, 'login_user']);
+Route::get('/dang-nhap', [UserController::class, 'login_user'])->name('login');
 Route::get('/dang-xuat', [UserController::class, 'logout']);
 Route::get('/dang-ky', [UserController::class, 'signUp']);
 

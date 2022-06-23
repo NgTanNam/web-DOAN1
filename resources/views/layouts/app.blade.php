@@ -170,9 +170,40 @@
       <!--  -->
     </main>
   </div>
-
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+  </script>
 
   <script type="text/javascript">
+    // $(document).ready(function(){
+      function select(selectObject){
+        var action = selectObject.id;
+        var ma_id = selectObject.value;
+        var _token = $('input[name="_token"]').val();
+        var result = '';
+        
+        // alert(action);
+        // alert(ma_id);
+        // alert(_token);
+        
+
+        if (action == 'thanhpho'){
+          result = 'quanhuyen';
+        }else{
+          result = 'xaphuong';
+        }
+        $.ajax({
+          method : 'POST',
+          url: "{{url('/select-delivery')}}",
+          data : {action:action,ma_id:ma_id,_token:_token},
+          success: function(data){
+            $('#'+result).html(data);
+          }
+        });
+
+      }
+    // })
+
+
     function ChangeToSlug() {
       var slug;
 
@@ -231,6 +262,8 @@
     CKEDITOR.replace('ckeditor');
   </script>
 
+  
+  
 
 </body>
 

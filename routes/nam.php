@@ -24,4 +24,5 @@ Route::group(['middleware' => 'auth.roles', 'auth.roles' => ['Admin','CTV']], fu
     Route::resource('/ql-baiviet', BaiVietController::class);
     Route::resource('/ql-sukien', SuKienController::class);
     Route::resource('/ql-hinhanh', HinhAnhController::class);
+    Route::post('/select-delivery', [BaiVietController::class, 'select_delivery']);   
 });

@@ -50,7 +50,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Sự kiện</label>:</label>
+                                <label>Sự kiện:</label>
                                 <select name="idSK" class="form-select">
                                     @foreach ($sukien as $item)
                                     <option value="{{$item->maSuKien}}">{{$item->tenSuKien}}</option>
@@ -68,6 +68,36 @@
                                   <option value="0">Kích hoạt</option>
                                   <option value="1">Không kích hoạt</option>  
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Thành Phố:</label>
+                                <select name="thanhpho" id="thanhpho" class="form-select choose" onchange="select(this)">
+                                    <option value="">--Chọn Thành Phố--</option>
+                                  @foreach ($thanhpho as $key => $item)
+                                    <option value="{{$item->matp}}">{{$item->name}}</option>
+                                  @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Quận Huyện:</label>
+                                <select name="quanhuyen" id="quanhuyen" class="form-select choose" onchange="select(this)">
+                                  
+                                    <option value="">--Chọn Quận Huyện--</option>
+                                  
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Xã Phường:</label>
+                                <select name="xaphuong" id="xaphuong" class="form-select">
+                                  
+                                    <option value="">--Chọn Xã Phường--</option>
+                                  
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="uname">Địa chỉ cụ thể:</label>
+                                <input type="text" class="form-control" value="" placeholder="Địa chỉ cụ thể" name="diaChi" required>
+                                <div class="invalid-feedback">Vui lòng nhập Địa chỉ cụ thể.</div>
                             </div>
                             <div class="form-group">
                                 <label for="">Hình ảnh:</label>
@@ -99,6 +129,6 @@
 
     </div>
 
-
+    
 @endsection
   

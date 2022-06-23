@@ -11,7 +11,7 @@
                     <div class="card-header pb-0 p-3">
                         <div class="row">
                             <div class="col-6 d-flex align-items-center">
-                            <h6 class="mb-0">Add Posts</h6>
+                            <h6 class="mb-0">Edit Posts</h6>
                             </div>
                             
                         </div>
@@ -74,6 +74,40 @@
                                         <option selected value="1">Không kích hoạt</option> 
                                      @endif 
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Thành Phố:</label>
+                                <select name="thanhpho" id="thanhpho" class="form-select choose" onchange="select(this)">
+                                    <option value="">--Chọn Thành Phố--</option>
+                                  @foreach ($thanhpho as $key => $item)
+                                    <option value="{{$item->matp}}">{{$item->name}}</option>
+                                  @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Quận Huyện:</label>
+                                <select name="quanhuyen" id="quanhuyen" class="form-select choose" onchange="select(this)">
+                                  
+                                    <option value="">--Chọn Quận Huyện--</option>
+                                  
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Xã Phường:</label>
+                                <select name="xaphuong" id="xaphuong" class="form-select">
+                                
+                                    <option value="">--Chọn Xã Phường--</option>
+                                  
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="uname">Địa chỉ cụ thể:</label>
+                               
+                                
+                                    <input type="text" class="form-control" @foreach ($diachi as $item) value="{{$item->diaChi}}" @endforeach placeholder="Địa chỉ cụ thể" name="diaChi" required>
+                                
+                                
+                                <div class="invalid-feedback">Vui lòng nhập Địa chỉ cụ thể.</div>
                             </div>
                             <div class="form-group">
                                 <label for="">Hình ảnh:</label>

@@ -9,6 +9,10 @@ use App\Models\DanhMucCon;
 use App\Models\BaiViet;
 use App\Models\HinhAnh;
 use App\Models\Video;
+use App\Models\ThanhPho;
+use App\Models\QuanHuyen;
+use App\Models\XaPhuong;
+use App\Models\BaiVietDiaChi;
 use Illuminate\Support\Facades\File;
 
 class BaiVietController extends Controller
@@ -27,13 +31,16 @@ class BaiVietController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         $sukien = SuKien::all();
         $danhmuc = DanhMucCon::all();
-        return view('admin.baiviet.create')->with(compact('sukien','danhmuc'));
+        $thanhpho = ThanhPho::all();
+        
+        return view('admin.baiviet.create')->with(compact('sukien','danhmuc','thanhpho'));
     }
 
     /**
@@ -51,6 +58,8 @@ class BaiVietController extends Controller
             'chiTietBaiViet' => 'required',
             'trangThai' => 'required',
             'image' => 'required',
+            'xaphuong' => 'required',
+            'diaChi' => 'required'
         ]);
         $data = $request->all();
         $baiviet = new BaiViet();
@@ -70,6 +79,13 @@ class BaiVietController extends Controller
         $baiviet->image=$new_image;
 
         $baiviet->save();
+
+        //address
+        $diachi = new BaiVietDiaChi();
+        $diachi->maBV = $baiviet->maBV;
+        $diachi->diaChi = $data['diaChi'];
+        $diachi->maPhuong = $data['xaphuong'];
+        $diachi->save();
 
         // thêm hình ảnh mô tả
 
@@ -139,8 +155,11 @@ class BaiVietController extends Controller
         $data = BaiViet::find($id);
         $sukien = SuKien::all();
         $danhmuc = DanhMucCon::all();
+        $thanhpho = ThanhPho::all();
+        
+        $diachi = BaiVietDiaChi::where('maBV', $id)->get();
         $video = Video::where('maBV', $id)->get();
-        return view('admin.baiviet.edit')->with(compact('data','sukien','danhmuc','video'));
+        return view('admin.baiviet.edit')->with(compact('data','sukien','danhmuc','video','thanhpho','diachi'));
     }
 
     /**
@@ -158,6 +177,8 @@ class BaiVietController extends Controller
             'idSK' => 'required',
             'chiTietBaiViet' => 'required',
             'trangThai' => 'required',
+            'xaphuong' => 'required',
+            'diaChi' => 'required'
         ]);
         // $data = $request->all();
         // $baiviet = new BaiViet();
@@ -185,6 +206,9 @@ class BaiVietController extends Controller
         
 
         $baiviet->save();
+
+        //address
+        
 
         $pathvideo = 'uploads/videos';
         $videos = $request->file('videos');
@@ -252,6 +276,34 @@ class BaiVietController extends Controller
 
 
         return redirect()->back();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function select_delivery(Request $request){
+        $data = $request->all();
+        if ($data['action']) {
+            $output = '';
+            if ($data['action'] == "thanhpho") {
+                $select_province = QuanHuyen::where('matp', $data['ma_id'])->orderby('maqh', 'ASC')->get();
+                $output.= '<option>--Chọn Quận Huyện--</option>';
+                foreach ($select_province as $key => $value) {
+                    $output .= '<option value="'.$value->maqh.'">'.$value->name.'</option>';
+                }
+               
+            }else { 
+                $select_wards = XaPhuong::where('maqh', $data['ma_id'])->orderby('maPhuong', 'ASC')->get();
+                $output.= '<option>--Chọn Xã Phường--</option>';
+                foreach ($select_wards as $key => $value) {
+                    $output .= '<option value="'.$value->maPhuong.'">'.$value->name.'</option>';
+                }
+            }
+            echo $output;
+        }
     }
    
 }

@@ -49,7 +49,8 @@
                                 <div v-else class="outgoing_msg">
                                     <div class="sent_msg">
                                         <p :id="'tin_nhan_' + message.id">@{{ message.noi_dung }}</p>
-                                        <span class="time_date"> <i class="fa fa-pencil text-success"></i>
+                                        <span class="time_date"> <i onclick="changeTypeToUpdate(event)"
+                                                :id="'_' + message.id" class="fa fa-pencil text-success"></i>
                                             <i onclick="deleteMessage(event)" :id="message.id"
                                                 class="fa-solid fa-trash-can text-danger" style="margin-right: 10px"></i>
                                             11:01 AM | June 9</span>
@@ -57,8 +58,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="type_message" style="width: 100%;padding:7px;display: none">
+                            <div class="text-success" style="font-size: 12px;font-weight: bold">Đang sửa</div>
+                            <p id="ct_mess_up" style="display: inline-block;font-size: 14px;width: 90%;font-weight: 500">Đangđá sádasdửa
+                                tqưerqwerqwerqwerin này nè</p>
+                            <p style="display: flex;float: right;font-size: 14px;width: 10%;"><i
+                                    onclick=" changeTypeToCreate()" style="font-size: 25px;"
+                                    class="text-success fa-solid fa-xmark btn"></i></p>
+                        </div>
                         <div class="type_msg">
+
+
                             <div class="input_msg_write">
+
                                 <input v-model="message" @keyup.enter="sendMessage" type="text" class="write_msg"
                                     placeholder="Type a message" />
                                 <button @click="sendMessage" class="msg_send_btn" type="button"><i
@@ -130,10 +142,36 @@
 
             }
 
-
             function deleteMessage(event) {
                 // console.log(event.target.id);
                 personal_vue.deleteMessage(event.target.id);
+
+            }
+
+            function changeTypeToUpdate(event) {
+                personal_vue.message = $('#tin_nhan' + event.target.id)[0].textContent;
+                var a =$('#ct_mess_up')[0];
+                a.textContent =  personal_vue.message;
+                console.log();
+                personal_vue.idMessUpdate = (event.target.id + '').slice(1);
+                if (personal_vue.type == 'create') {
+                    personal_vue.type = 'update';
+                    $("#type_message")[0].style.display = "block";
+                    var area_mess = $('.msg_history')[0];
+                    area_mess.style.height = area_mess.offsetHeight - 71 + 'px';
+                }
+
+            }
+
+            function changeTypeToCreate() {
+                personal_vue.idMessUpdate = null;
+                personal_vue.message = '';
+                if (personal_vue.type == 'update') {
+                    personal_vue.type = 'create';
+                    $("#type_message")[0].style.display = "none";
+                    var area_mess = $('.msg_history')[0];
+                    area_mess.style.height = area_mess.offsetHeight + 71 + 'px';
+                }
 
             }
         </script>
@@ -149,17 +187,35 @@
                             users: [],
                             messages: [],
                             avtChatBox: "",
-                            nameChatBox: ""
+                            nameChatBox: "",
+                            type: 'create',
+                            idMessUpdate: null,
                         }
                     },
                     methods: {
                         sendMessage() {
-                            axios.post('{{ route('postChat') }}', {
-                                message: this.message,
-                                user_id: this.user_id,
+                            if (this.type == 'create') {
+                                axios.post('{{ route('postChat') }}', {
+                                    message: this.message,
+                                    user_id: this.user_id,
+                                })
+                                this.message = ""
+                            } else {
+                                axios.post('{{ route('postChat') }}', {
+                                    message: this.message,
+                                    user_id: this.user_id,
+                                    _method: 'patch',
+                                    idMessUpdate: this.idMessUpdate,
+                                })
+                                this.message = ""
+                                
+                                idMessUpdate = null;
+                                changeTypeToCreate();
 
-                            })
-                            this.message = ""
+                            }
+
+
+
                         },
                         deleteMessage(id_tin_nhan) {
 
@@ -204,7 +260,15 @@
                                 if (event.type == 'delete') {
                                     if (event.message.ma_nguoi_nhan == this.user_id || event.message
                                         .ma_nguoi_gui == this.user_id) {
-                                        document.getElementById('tin_nhan_'+event.message.id).innerHTML = '<i>Tin nhắn này đã được xóa</i>'
+                                        document.getElementById('tin_nhan_' + event.message.id).innerHTML =
+                                            '<i>Tin nhắn này đã được xóa</i>'
+                                    }
+                                }
+                                if (event.type == 'update') {
+                                    if (event.message.ma_nguoi_nhan == this.user_id || event.message
+                                        .ma_nguoi_gui == this.user_id) {
+                                        document.getElementById('tin_nhan_' + event.message.id).innerHTML =event.message.noi_dung;
+                                            
                                     }
                                 }
                             });

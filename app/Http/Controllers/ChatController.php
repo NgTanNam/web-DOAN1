@@ -64,4 +64,16 @@ class ChatController extends Controller
         broadcast(new ChatEvent($mess,'delete',$user_id));
     }
 
+    function patchChat(Request $request){
+        $personal_id  = Auth::user()->maNguoiDung;
+        $user_id = $request->input('user_id');
+        $mess = TinNhan::find($request->idMessUpdate);
+        $mess->noi_dung = $request->message;
+        $mess->save();
+
+        broadcast(new ChatEvent($mess,'update',$personal_id));
+        broadcast(new ChatEvent($mess,'update',$user_id));
+
+    }
+
 }

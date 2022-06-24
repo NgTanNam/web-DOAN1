@@ -140,7 +140,7 @@
                                         </span>
                                     </div>
                                     
-                                    <p  class="m-b-5 m-t-10">
+                                    <p id='comment_content_{{ $item->id }}'  class="m-b-5 m-t-10">
                                         {!! $item->noi_dung !!}</p>
                                 </div>
                             </div>

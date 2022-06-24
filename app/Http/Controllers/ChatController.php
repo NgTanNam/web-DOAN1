@@ -30,7 +30,7 @@ class ChatController extends Controller
         $personal_id  = Auth::user()->maNguoiDung;
         $user_id = $request->input('user_id');
         $db = DB::select(
-            'select * FROM tin_nhans WHERE (ma_nguoi_gui = ? AND ma_nguoi_nhan = ?) OR (ma_nguoi_gui = ? AND ma_nguoi_nhan = ?) order by id  desc  LIMIT 10 ',
+            'select * FROM tin_nhans WHERE (trang_thai = 1 and ma_nguoi_gui = ? AND ma_nguoi_nhan = ?) OR (trang_thai = 1 and ma_nguoi_gui = ? AND ma_nguoi_nhan = ?)    order by id  desc  LIMIT 10 ',
             [$personal_id,$user_id,$user_id,$personal_id]
         );
         $temp =  array();
@@ -50,6 +50,30 @@ class ChatController extends Controller
     
         broadcast(new ChatEvent($mess,'create',$personal_id));
         broadcast(new ChatEvent($mess,'create',$user_id));
+    }
+
+
+    function deleteChat(Request $request){
+        $personal_id  = Auth::user()->maNguoiDung;
+        $user_id = $request->input('user_id');
+        $mess  =TinNhan::find($request->id_tin_nhan);
+        $mess->trang_thai = 0;
+        $mess->save();
+        // return $mess;
+        broadcast(new ChatEvent($mess,'delete',$personal_id));
+        broadcast(new ChatEvent($mess,'delete',$user_id));
+    }
+
+    function patchChat(Request $request){
+        $personal_id  = Auth::user()->maNguoiDung;
+        $user_id = $request->input('user_id');
+        $mess = TinNhan::find($request->idMessUpdate);
+        $mess->noi_dung = $request->message;
+        $mess->save();
+
+        broadcast(new ChatEvent($mess,'update',$personal_id));
+        broadcast(new ChatEvent($mess,'update',$user_id));
+
     }
 
 }

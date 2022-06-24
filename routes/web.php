@@ -19,12 +19,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['middleware' => 'auth'], function () {
 
-Route::get('baiviet/{id}', [BaiVietController::class, 'getViewBaiVietController']);
-Route::post('binhluan',[BaiVietController::class, 'postBinhLuan'])->name('postBinhLuan');;
-Route::patch('binhluan',[BaiVietController::class, 'patchBinhluan']);
-Route::delete('binhluan', [BaiVietController::class, 'deleteBinhluan']);
+    Route::get('baiviet/{id}', [BaiVietController::class, 'getViewBaiVietController']);
+    Route::prefix('binhluan')->group(function () {
+        Route::post('', [BaiVietController::class, 'postBinhLuan'])->name('postBinhLuan');
+        Route::patch('', [BaiVietController::class, 'patchBinhluan']);
+        Route::delete('', [BaiVietController::class, 'deleteBinhluan']);
+    });
 
-Route::get('chat',[ChatController::class,'getChat']);
-Route::post('messages',[ChatController::class,'getMessages'])->name('messages');
-Route::post('chat',[ChatController::class,'postChat'])->name('postChat');
+
+    Route::get('chat', [ChatController::class, 'getChat']);
+    Route::post('messages', [ChatController::class, 'getMessages'])->name('messages');
+    Route::post('chat', [ChatController::class, 'postChat'])->name('postChat');
+    Route::delete('chat', [ChatController::class, 'deleteChat'])->name('deleteChat');
+    Route::patch('chat', [ChatController::class, 'patchChat']);
+});

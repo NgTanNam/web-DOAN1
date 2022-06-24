@@ -45,8 +45,57 @@ use Illuminate\Support\Facades\Auth;
                         <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa-brands fa-rocketchat"></i>
                         </a>
+                        <ul class="dropdown-menu" style="width: 400px" aria-labelledby="navbarScrollingDropdown">
+                            <li
+                                style="border-bottom: rgb(233, 236, 239) solid 1px;padding-bottom: 8px">
+                                <a class="dropdown-item" href="#">
+                                    <div
+                                        style=" display: flex;
+                                flex-wrap: nowrap;
+                                justify-content:space-between">
+                                        <div> <img id="avatar_personale" src="  {{ optional(auth()->user())->avt }}"
+                                                alt=""
+                                                style="  vertical-align: middle;
+                                        width: 50px;
+                                        height: 50px;
+                                        border-radius: 50%;
+                                        align-items:center">
+                                        </div>
+                                        <div style="width: 80%">
+                                            <div style="font-size: 13px;font-weight: 700">Con mèo đang nói với bạn</div>
+                                            <div style="font-size: 15px;font-weight: 500">Mèo méo meo mè meo</div>
+                                        </div>
+                                        <div
+                                            style=" display: flex;
+                                        flex-wrap: nowrap;">
+                                            <p
+                                                style="vertical-align: middle; margin-top: auto; /* Important */ 
+                                            margin-bottom: auto; /* Important */ ">
+                                                Thời gian</p>
+                                        </div>
+                                    </div>
+
+                                </a>
+
+                            </li>
+
+
+
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Xem trong họp Chat</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown nav-item-icon">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-square-envelope"></i>
+                        </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Action <i
+                                        class="fa-solid fa-circle-dot"></i></a>
+                            </li>
                             <li><a class="dropdown-item" href="#">Another action</a></li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -54,27 +103,14 @@ use Illuminate\Support\Facades\Auth;
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>
-                        <li class="nav-item dropdown nav-item-icon">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-square-envelope"></i>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" href="#">Action <i class="fa-solid fa-circle-dot"></i></a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
                 </ul>
 
 
                 <div>
                     <ul class="navbar-nav me-auto my-2 my-lg-0 nl" style="--bs-scroll-height: 100px;">
-                       
+
                         <li class="nav-item  nav-item-icon">
-                           
+
                         </li>
                         <li class="nav-item  nav-item-icon">
                             <img src="frontend/image/header/facebook-app-symbol.png" alt="">
@@ -87,7 +123,7 @@ use Illuminate\Support\Facades\Auth;
                         </li>
 
 
-                       
+
                     </ul>
                 </div>
 
@@ -96,20 +132,23 @@ use Illuminate\Support\Facades\Auth;
                 <div style="background-color: #C82B2B;height: 100%;padding: 3px;border-radius:10px 0px 0px 10px;">
                     <ul class="navbar-nav me-auto my-2 my-lg-0 nl" style="--bs-scroll-height: 100px;">
                         <li class="nav-item personal_item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff">
 
-                                <img id="avatar_personale" src="  {{ optional(auth()->user())->avt }}" alt=""
+                                <img id="avatar_personale" src="  {{ optional(auth()->user())->avt }}"
+                                    alt=""
                                     style="  vertical-align: middle;
                                     width: 50px;
                                     height: 50px;
                                     border-radius: 50%;">
 
-                                {{ optional(auth()->user())->ten}}
+                                {{ optional(auth()->user())->ten }}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                                 {{-- <li><a class="dropdown-item" href="#">Action</a></li> --}}
-                                <li><a class="dropdown-item" href="{{URL::to('/tai-khoan/'.Auth::user()->maNguoiDung)}}">Tài khoản cá nhân</a></li>
+                                <li><a class="dropdown-item"
+                                        href="{{ URL::to('/tai-khoan/' . Auth::user()->maNguoiDung) }}">Tài khoản cá
+                                        nhân</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -144,5 +183,4 @@ use Illuminate\Support\Facades\Auth;
         }
         prevScrollpos = currentScrollPos;
     }
-  
 </script>

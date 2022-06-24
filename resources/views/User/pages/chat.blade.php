@@ -1,5 +1,6 @@
 @extends('User.layout_web')
 @section('content')
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css"
         rel="stylesheet">
     <link href="{{ asset('frontend/style/chat/style.css') }}" type="text/css" rel="stylesheet">
@@ -156,9 +157,12 @@
                 personal_vue.idMessUpdate = (event.target.id + '').slice(1);
                 if (personal_vue.type == 'create') {
                     personal_vue.type = 'update';
-                    $("#type_message")[0].style.display = "block";
+                    // $("#type_message")[0].style.display = "block";
+                    $("#type_message").show(500);
                     var area_mess = $('.msg_history')[0];
-                    area_mess.style.height = area_mess.offsetHeight - 71 + 'px';
+                    // area_mess.style.height = area_mess.offsetHeight - 71 + 'px';
+
+                    $('.msg_history').animate({height: area_mess.offsetHeight - 71 + 'px'},500)
                 }
 
             }
@@ -168,9 +172,11 @@
                 personal_vue.message = '';
                 if (personal_vue.type == 'update') {
                     personal_vue.type = 'create';
-                    $("#type_message")[0].style.display = "none";
+                    // $("#type_message")[0].style.display = "none";
+                    $("#type_message").hide(500);
                     var area_mess = $('.msg_history')[0];
-                    area_mess.style.height = area_mess.offsetHeight + 71 + 'px';
+                    // area_mess.style.height = area_mess.offsetHeight + 71 + 'px';
+                    $('.msg_history').animate({height: area_mess.offsetHeight + 71 + 'px'},500)
                 }
 
             }
@@ -267,7 +273,12 @@
                                 if (event.type == 'update') {
                                     if (event.message.ma_nguoi_nhan == this.user_id || event.message
                                         .ma_nguoi_gui == this.user_id) {
-                                        document.getElementById('tin_nhan_' + event.message.id).innerHTML =event.message.noi_dung;
+                                        $('#tin_nhan_'+event.message.id).animate({opacity:0.7},500,function(){
+                                  
+                                            document.getElementById('tin_nhan_' + event.message.id).innerHTML =event.message.noi_dung;
+
+                                            $('#tin_nhan_'+event.message.id).animate({opacity:1},500);
+                                        })
                                             
                                     }
                                 }

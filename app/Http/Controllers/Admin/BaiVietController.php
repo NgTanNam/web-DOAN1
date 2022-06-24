@@ -208,7 +208,12 @@ class BaiVietController extends Controller
         $baiviet->save();
 
         //address
-        
+        BaiVietDiaChi::where('maBV', $id)->delete();
+        $diachi = new BaiVietDiaChi();
+        $diachi->maBV = $id;
+        $diachi->diaChi = $data['diaChi'];
+        $diachi->maPhuong = $data['xaphuong'];
+        $diachi->save();
 
         $pathvideo = 'uploads/videos';
         $videos = $request->file('videos');
@@ -254,6 +259,10 @@ class BaiVietController extends Controller
             unlink($path);
         }
         BaiViet::find($id)->delete();
+        $diachi =  BaiVietDiaChi::where('maBV', $id)->get();
+        if ($diachi) {
+            BaiVietDiaChi::where('maBV', $id)->delete();
+        }
 
         $hinhanh = HinhAnh::where('maBV',$id)->get();
         if ($hinhanh) {

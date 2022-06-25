@@ -26,6 +26,8 @@ class BaiViet extends Model
     public function images(){
         return $this->hasMany(HinhANh::class,'maBV','maBV');
     }
-
+    public function taiKhoanNguoiDung(){
+        return $this->belongsTo(taiKhoanNguoiDung::class,'ma_nguoi_dung','maNguoiDung');
+    }
     
 }

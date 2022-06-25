@@ -1,0 +1,32 @@
+.dong_thong_bao {
+    border-bottom: rgb(233, 236, 239) solid 1px;
+    padding-bottom: 8px;
+}
+
+.box_content_thongbao {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.image_thongbao {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    align-items: center;
+}
+
+.content_thongbao{
+    width: 80%;
+}
+
+.title_thongbao{
+
+    font-size: 13px;font-weight: 700
+}
+
+.text_content_thongbao{
+
+    font-size: 15px;font-weight: 500
+}

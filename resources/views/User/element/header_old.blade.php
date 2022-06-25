@@ -142,7 +142,7 @@ $thongBaos = ThongBao::where('ma_nguoi_dung', auth()->user()->maNguoiDung)
                             <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff">
 
-                                <img id="avatar_personale" src="  {{ optional(auth()->user())->avt }}"
+                                <img id="avatar_personale" src="{{ optional(auth()->user())->avt }}"
                                     alt=""
                                     style="  vertical-align: middle;
                                     width: 50px;

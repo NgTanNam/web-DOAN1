@@ -19,7 +19,8 @@ class taiKhoanNguoiDung extends Authenticatable
         'diaChi',
         'ngaySinh',
         'sdt',
-        'matKhau'
+        'matKhau',
+        'avt'
     ];
     protected $primaryKey = 'maNguoiDung';
     protected $table = 'taikhoannguoidung';

@@ -29,5 +29,9 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
+    'google' => [
+        'client_id' => '742470741332-q807sa9lcgm372k7eh1podsia9dd983n.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'http://localhost/web-DOAN1/public/callback',
+    ],
 ];

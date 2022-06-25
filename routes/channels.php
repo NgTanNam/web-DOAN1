@@ -23,3 +23,6 @@ Broadcast::channel('chat.{id}', function ($user) {
     return $user;
 });
 
+Broadcast::channel('thongbao.{id}', function ($user) {
+    return $user;
+});

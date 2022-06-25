@@ -15,7 +15,7 @@
                         aria-expanded="false" style="color: #000000;font-size: 19px;">
 
                         <img id="avatar_personale"
-                            src="https://cdnb.artstation.com/p/assets/images/images/019/697/901/large/wl-op-36s2.jpg?1564628205"
+                            src="{{$baiViet->taiKhoanNguoiDung->avt}}"
                             alt=""
                             style="  vertical-align: middle;
                 width: 50px;
@@ -24,7 +24,7 @@
                     </a>
                 </div>
                 <div id="name_and_time">
-                    <div id="name_author">{{ optional(auth()->user())->ho }} {{ optional(auth()->user())->ten }}</div>
+                    <div id="name_author">{{$baiViet->taiKhoanNguoiDung->ho }} {{ $baiViet->taiKhoanNguoiDung->ten }}</div>
                     <p id="time_postion" style="display: inline">Ngày {{ $baiViet->created_at }}</p><br>
 
                 </div>
@@ -145,54 +145,7 @@
                                 </div>
                             </div>
                         @endforeach
-                        <div class="d-flex flex-row comment-row">
-                            <div class="p-2"><span class="round"><img
-                                        src="https://cdnb.artstation.com/p/assets/images/images/019/697/901/large/wl-op-36s2.jpg?1564628205"
-                                        alt="user" width="50"></span></div>
-                            <div class="comment-text w-100">
-                                <h5>Samso Nagaro</h5>
-                                <div class="comment-footer">
-                                    <span class="date">April 14, 2019</span>
-                                    <span class="label label-info">Pending</span> <span class="action-icons">
 
-                                        <a style="display:flex;float:right;text-decoration-line: none;" href="#"
-                                            data-abc="true"><i style="text-decoration-line: none;margin-top: 4px;"
-                                                class="fa fa-heart"></i>0</a>
-                                    </span>
-                                </div>
-                                <p class="m-b-5 m-t-10">Lorem Ipsum is simply dummy text of the printing and
-                                    typesetting
-                                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the
-                                    1500s,
-                                    when an unknown printer took a galley of type and scrambled it</p>
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-row comment-row ">
-                            <div class="p-2"><span class="round"><img src="https://i.imgur.com/tT8rjKC.jpg"
-                                        alt="user" width="50"></span></div>
-                            <div class="comment-text active w-100">
-                                <h5>Jonty Andrews</h5>
-                                <div class="comment-footer">
-                                    <span class="date">March 13, 2020</span>
-                                    <span class="label label-success">Approved</span> <span class="action-icons active">
-                                        <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a>
-                                        <a href="#" data-abc="true"><i
-                                                class="fa fa-rotate-right text-success"></i></a>
-                                        <a href="#" data-abc="true"><i class="fa fa-heart text-danger"></i></a>
-                                    </span>
-                                </div>
-                                <p class="m-b-5 m-t-10">Contrary to popular belief, Lorem Ipsum is not simply random
-                                    text.
-                                    It has roots in a piece of classical Latin literature from 45 BC, making it over
-                                    2000
-                                    years old. Richard McClintock, a Latin professor at Hampden-Sydney College in
-                                    Virginia,
-                                    looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum
-                                    passage,
-                                    and going through the cites</p>
-                            </div>
-                        </div>
 
 
 

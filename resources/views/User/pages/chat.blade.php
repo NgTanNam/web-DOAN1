@@ -254,8 +254,6 @@
                                 this.users = users
                             })
                             .listen('ChatEvent', (event) => {
-                                console.log(event.status);
-                                console.log(this.user_id);
 
                                 if (event.type == 'create') {
                                     if (event.message.ma_nguoi_nhan == this.user_id || event.message

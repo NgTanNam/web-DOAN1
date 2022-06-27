@@ -2,7 +2,13 @@
 use Illuminate\Support\Facades\Auth;
 use App\Models\ThongBao;
 
-$thongBaos = ThongBao::where('ma_nguoi_dung', auth()->user()->maNguoiDung)
+$thongBaoTinNhans = ThongBao::where('ma_nguoi_dung', auth()->user()->maNguoiDung)
+    ->where('loai_thong_bao', 1)
+    ->orderBy('updated_at', 'DESC')
+    ->get();
+
+$thongBaoBaiViets = ThongBao::where('ma_nguoi_dung', auth()->user()->maNguoiDung)
+    ->where('loai_thong_bao', 2)
     ->orderBy('updated_at', 'DESC')
     ->get();
 ?>
@@ -46,15 +52,14 @@ $thongBaos = ThongBao::where('ma_nguoi_dung', auth()->user()->maNguoiDung)
                         <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
                     </li>
                     <li class="nav-item dropdown nav-item-icon">
-                        <a onclick="changeColor()"  class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">&nbsp; <i
-                               
-                                class="fa-brands fa-rocketchat"></i>
+                        <a onclick="changeColor()" class="nav-link dropdown-toggle" href="#"
+                            id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">&nbsp; <i class="fa-brands fa-rocketchat"></i>
                         </a>
                         <ul id="thongbao_dropdown" class="dropdown-menu" style="width: 400px"
                             aria-labelledby="navbarScrollingDropdown">
 
-                            @foreach ($thongBaos as $thongBao)
+                            @foreach ($thongBaoTinNhans as $thongBao)
                                 <li id="dong_thongbao_{{ $thongBao->id }}" class="dong_thong_bao">
                                     <a class="dropdown-item"
                                         href="{{ route('postChat') }}?chatbox={{ $thongBao->fk_id }}">
@@ -101,15 +106,49 @@ $thongBaos = ThongBao::where('ma_nguoi_dung', auth()->user()->maNguoiDung)
                         <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-square-envelope"></i>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                            <li><a class="dropdown-item" href="#">Action <i
-                                        class="fa-solid fa-circle-dot"></i></a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <ul id="thongbao_baiviet_dropdown" class="dropdown-menu" style="width: 400px"
+                            aria-labelledby="navbarScrollingDropdown">
+
+                            @foreach ($thongBaoBaiViets as $thongBao)
+                                <li id="dong_thongbao_{{ $thongBao->id }}" class="dong_thong_bao">
+                                    <a class="dropdown-item"
+                                        href="{{ route('bai_viet',['id'=>$thongBao->fk_id ]) }}">
+                                        <div class="box_content_thongbao">
+                                            <div> <img id="avatar_personale" class="image_thongbao"
+                                                    src="{{ asset('uploads/images/' . optional($thongBao)->image) }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="content_thongbao">
+                                                <div class="title_thongbao">
+                                                    {{ optional($thongBao)->tieu_de }}
+                                                </div>
+                                                <div id="text_content_thongbao_{{ $thongBao->id }}"
+                                                    class="text_content_thongbao">
+                                                    {{ optional($thongBao)->noi_dung }}</div>
+                                            </div>
+                                            <div
+                                                style=" display: flex;
+                                    flex-wrap: nowrap;">
+                                                <p id="time_thongbao_{{ $thongBao->id }}"
+                                                    style=" margin-top: auto; 
+                                        margin-bottom: auto; font-size: 14px ">
+                                                    {{ date_format($thongBao->updated_at, 'H:i') }}</p>
+                                            </div>
+                                        </div>
+
+                                    </a>
+
+                                </li>
+                            @endforeach
+
+
+
+
+
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" href="{{ route('postChat') }}">Xem trong họp Chat</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -159,7 +198,7 @@ $thongBaos = ThongBao::where('ma_nguoi_dung', auth()->user()->maNguoiDung)
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                                <li><a class="dropdown-item" href="{{ URL::to('/dang-xuat') }}">Đăng xuất</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -203,8 +242,9 @@ $thongBaos = ThongBao::where('ma_nguoi_dung', auth()->user()->maNguoiDung)
 
     }
 
-    function changeColor(){
-        $('.fa-brands.fa-rocketchat')[0].style.color = 'rgba(0,0,0,.55)';}
+    function changeColor() {
+        $('.fa-brands.fa-rocketchat')[0].style.color = 'rgba(0,0,0,.55)';
+    }
 </script>
 <script>
     var thongBao_vue =
@@ -218,9 +258,12 @@ $thongBaos = ThongBao::where('ma_nguoi_dung', auth()->user()->maNguoiDung)
             },
             methods: {
                 hienThiThongBao(event) {
-                    var dongThongBaos = $('#thongbao_dropdown')[0];
+
 
                     console.log(event);
+
+
+                    var dongThongBaos = $('#thongbao_dropdown')[0];
                     var dongThongBao = $('#dong_thongbao_' + event.thongBao.id);
                     console.log(dongThongBao);
                     $(".fa-brands.fa-rocketchat")[0].style.color = '#C82B2B';
@@ -267,6 +310,61 @@ $thongBaos = ThongBao::where('ma_nguoi_dung', auth()->user()->maNguoiDung)
 
 
                     }
+                },
+
+                hienThiThongBaoBaiViet(event) {
+
+
+                    console.log(event);
+
+
+                    var dongThongBaos = $('#thongbao_baiviet_dropdown')[0];
+                    var dongThongBao = $('#dong_thongbao_' + event.thongBao.id);
+                    console.log(dongThongBao);
+                    $(".fa-brands.fa-rocketchat")[0].style.color = '#C82B2B';
+                    if (dongThongBao.length != 0) {
+                        dongThongBao.hide(250, function() {
+                            $("#text_content_thongbao_" + event.thongBao.id)
+                            $("#text_content_thongbao_" + event.thongBao.id)[0].innerHTML = event
+                                .thongBao.noi_dung;
+                            let date = new Date(event.thongBao.updated_at);
+                            $("#time_thongbao_" + event.thongBao.id)[0].innerHTML = date.getHours() + ':' +
+                                date.getMinutes();
+
+
+                            dongThongBao.remove();
+                            dongThongBaos.insertBefore(dongThongBao[0], dongThongBaos.childNodes[0])
+                            dongThongBao.show(250);
+                        })
+
+                    } else {
+                        var dongThongBaos = $('#thongbao_baiviet_dropdown')[0];
+                        console.log(123);
+                        dongThongBao = document.createElement('li');
+                        dongThongBao.id = "dong_thongbao_" + event.thongBao.id;
+                        dongThongBao.className = "dong_thong_bao";
+                        dongThongBao.innerHTML =
+                            '<a class="dropdown-item" href="#"> <div class="box_content_thongbao"> <div> <img id="avatar_personale" class="image_thongbao" src="http://localhost/web-DOAN1/public/uploads/images/' +
+                            event.thongBao.image +
+                            '" alt=""> </div> <div class="content_thongbao"> <div class="title_thongbao"> ' + event
+                            .thongBao.tieu_de +
+                            ' đã nhắn tin cho bạn </div> <div id="text_content_thongbao_' + event.thongBao.id +
+                            '" class="text_content_thongbao"> noi dung</div> </div> <div style=" display: flex; flex-wrap: nowrap;"> <p id="time_thongbao_' +
+                            event.thongBao.id +
+                            '" style=" margin-top: auto; margin-bottom: auto; font-size: 14px "> thoi gian</p> </div> </div> </a>'
+                        dongThongBao.style.display = "none";
+                        dongThongBaos.insertBefore(dongThongBao, dongThongBaos.childNodes[0])
+                        dongThongBao = $('#dong_thongbao_' + event.thongBao.id);
+
+                        $("#text_content_thongbao_" + event.thongBao.id)[0].innerHTML = event
+                            .thongBao.noi_dung;
+                        let date = new Date(event.thongBao.updated_at);
+                        $("#time_thongbao_" + event.thongBao.id)[0].innerHTML = date.getHours() + ':' +
+                            date.getMinutes();
+                        dongThongBao.show(250);
+
+
+                    }
                 }
             },
             mounted() {
@@ -280,8 +378,10 @@ $thongBaos = ThongBao::where('ma_nguoi_dung', auth()->user()->maNguoiDung)
                         this.users = users
                     })
                     .listen('ThongBaoEvent', (event) => {
-
-                        this.hienThiThongBao(event);
+                        if (event.thongBao.loai_thong_bao == 1) {
+                            this.hienThiThongBao(event);
+                        }
+this. hienThiThongBaoBaiViet(event);
 
                     });
             },

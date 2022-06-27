@@ -114,7 +114,7 @@
                     <link rel="stylesheet"
                         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                     <div id='list_comment' class="comment-widgets m-b-20">
-                        @foreach (App\Models\BinhLuan::orderBy('id', 'DESC')->get() as $item)
+                        @foreach (App\Models\BinhLuan::where('bai_viet_id',$idBaiViet)->orderBy('id', 'DESC')->get() as $item)
                             <div id="comment_id_{{ $item->id }}" class="d-flex flex-row comment-row ">
                                 <div class="p-2"><span class="round"><img src="{{ $item->nguoiDung->avt }}"
                                             alt="user" width="50"></span></div>

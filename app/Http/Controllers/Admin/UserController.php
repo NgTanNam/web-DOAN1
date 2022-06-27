@@ -64,9 +64,9 @@ class UserController extends Controller
         $data['new_password'] = $request->new_password;
         $data['confirm_password'] = $request->confirm_password;
         $customer = taiKhoanNguoiDung::find($id);
-        if ($customer->matKhau == $data['old_password']) {
+        if ($customer->matKhau == md5($data['old_password']) ) {
             if ($data['new_password'] == $data['confirm_password']) {
-                $customer->matkhau = $data['new_password'];
+                $customer->matkhau = md5($data['new_password']);
                 $customer->save();
                 Session::put('message', 'Đổi mật khẩu thành công');
                 return Redirect()->back();

@@ -14,4 +14,9 @@ class BaiVietDiaChi extends Model
     ];
     protected $primaryKey = 'id';
     protected $table = 'baiviet_diachi';
+    
+
+    function xaPhuong(){
+        return $this->belongsTo(XaPhuong::class,'maPhuong','maPhuong');
+    }
 }

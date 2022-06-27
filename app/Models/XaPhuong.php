@@ -14,4 +14,8 @@ class XaPhuong extends Model
     ];
     protected $primaryKey = 'maPhuong';
     protected $table = 'Phuong';
+
+    function quanHuyen(){
+        return $this->belongsTo(QuanHuyen::class, 'maqh','maqh');
+    }
 }

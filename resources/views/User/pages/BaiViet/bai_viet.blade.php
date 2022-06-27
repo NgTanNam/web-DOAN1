@@ -1,8 +1,13 @@
+@php
+use App\Models\BaiVietDiaChi;
+
+@endphp
+
 @extends('User.layout_web')
 @section('content')
-<link rel="stylesheet" href="frontend/css/style.css">
-<link rel="stylesheet" href="frontend/style/home/style.css">
-<base href="{{ asset('public') }}">
+    <link rel="stylesheet" href="frontend/css/style.css">
+    <link rel="stylesheet" href="frontend/style/home/style.css">
+    <base href="{{ asset('public') }}">
 
     <div style="padding-top:95px"></div>
     <div>
@@ -14,9 +19,7 @@
                     <a class="nav-link " href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle=""
                         aria-expanded="false" style="color: #000000;font-size: 19px;">
 
-                        <img id="avatar_personale"
-                            src="{{$baiViet->taiKhoanNguoiDung->avt}}"
-                            alt=""
+                        <img id="avatar_personale" src="{{ $baiViet->taiKhoanNguoiDung->avt }}" alt=""
                             style="  vertical-align: middle;
                 width: 50px;
                 height: 50px;
@@ -24,134 +27,148 @@
                     </a>
                 </div>
                 <div id="name_and_time">
-                    <div id="name_author">{{$baiViet->taiKhoanNguoiDung->ho }} {{ $baiViet->taiKhoanNguoiDung->ten }}</div>
+                    <div id="name_author">{{ $baiViet->taiKhoanNguoiDung->ho }} {{ $baiViet->taiKhoanNguoiDung->ten }}
+                    </div>
                     <p id="time_postion" style="display: inline">Ngày {{ $baiViet->created_at }}</p><br>
 
                 </div>
 
             </div>
 
-            <h2 style="text-align: center;font-weight: bold">{{$baiViet->tenBV}}</h3>
-            <section class="ftco-section">
-                <div class="container">
-                    <div class="row">
+            <h2 style="text-align: center;font-weight: bold">{{ $baiViet->tenBV }}</h3>
+                <section class="ftco-section">
+                    <div class="container">
+                        <div class="row">
 
-                        <div class="col-md-12">
-                            <div class="featured-carousel owl-carousel">
+                            <div class="col-md-12">
+                                <div class="featured-carousel owl-carousel">
 
-                                @foreach ($baiViet->images as $item)
-                                    <div class="item">
-                                        <div class="work">
-                                            <div class="img d-flex align-items-center justify-content-center rounded"
-                                                style="background-image: url(http://localhost/web-DOAN1/public/uploads/images/{{ $item->hinhAnh }});">
-                                                <a href="#"
-                                                    class="icon d-flex align-items-center justify-content-center">
-                                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                                </a>
-                                            </div>
-                                            <div class="text pt-3 w-100 text-center">
-                                                {{-- <h3><a href="#">Work 01</a></h3>
+                                    @foreach ($baiViet->images as $item)
+                                        <div class="item">
+                                            <div class="work">
+                                                <div class="img d-flex align-items-center justify-content-center rounded"
+                                                    style="background-image: url(http://localhost/web-DOAN1/public/uploads/images/{{ $item->hinhAnh }});">
+                                                    <a href="#"
+                                                        class="icon d-flex align-items-center justify-content-center">
+                                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="text pt-3 w-100 text-center">
+                                                    {{-- <h3><a href="#">Work 01</a></h3>
                                                 <span>Web Design</span> --}}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
 
 
 
+                                </div>
                             </div>
                         </div>
                     </div>
+                </section>
+
+                <div style="margin: 20px" id="chi_tiet_bai_viet">
+
+
+
+
+
+                    {!! html_entity_decode($baiViet->chiTietBaiViet) !!}
+
+
+                    
+                    <b>Đia chỉ : </b>
+                    @foreach (BaiVietDiaChi::where('maBV', $idBaiViet)->get() as $diaChi)
+                        <p>{{$diaChi->diaChi}}, {{$diaChi->xaPhuong->name}}, {{$diaChi->xaPhuong->quanhuyen->name}}, Đà Nẵng </p>
+                    @endforeach
+
+
                 </div>
-            </section>
-
-            <div style="margin: 20px" id="chi_tiet_bai_viet">
-
-
-                {!! html_entity_decode($baiViet->chiTietBaiViet) !!}
-
-
+                <div style="margin: 20px"><img src="frontend/image/BaiViet/not-favorite-yet.png" width="30px"
+                        alt="">
+                    1280
+                    <img src="frontend/image/BaiViet/bookmark.png" width="30px" alt="">
+                </div>
+                <hr>
 
 
 
-            </div>
-            <div style="margin: 20px"><img src="frontend/image/BaiViet/not-favorite-yet.png" width="30px" alt="">
-                1280
-                <img src="frontend/image/BaiViet/bookmark.png" width="30px" alt="">
-            </div>
-            <hr>
+                <div id="app">
+                    <label style="display: none;" id="trang-thai-cmt" for="">Đang sửa bình luận ...<button
+                            type="button" @click="changeTypeToCreate" class="btn btn-light"><img
+                                src="frontend/image/BaiViet/close.png" width="15px" alt=""></button>
+                    </label>
+                    <div id="comment_uer">
+                        <div id="avt_author_cmt" class="row md-8">
+                            <a class="nav-link " href="#" id="a_avatar" role="button" data-bs-toggle=""
+                                aria-expanded="false" style="color: #000000;font-size: 19px;">
 
-
-
-            <div id="app">
-                <label style="display: none;" id="trang-thai-cmt" for="">Đang sửa bình luận ...<button type="button"
-                        @click="changeTypeToCreate" class="btn btn-light"><img src="frontend/image/BaiViet/close.png"
-                            width="15px" alt=""></button>
-                </label>
-                <div id="comment_uer">
-                    <div id="avt_author_cmt" class="row md-8">
-                        <a class="nav-link " href="#" id="a_avatar" role="button" data-bs-toggle=""
-                            aria-expanded="false" style="color: #000000;font-size: 19px;">
-
-                            <img id="avatar_personale" src="    {{ optional(auth()->user())->avt }}" alt=""
-                                style="  vertical-align: middle;
+                                <img id="avatar_personale" src="    {{ optional(auth()->user())->avt }}" alt=""
+                                    style="  vertical-align: middle;
         width: 45px;
         height: 45px;
         border-radius: 50%;">
-                        </a>
-                    </div>
-                    <div id="input_cmt">
-                        <textarea v-model="message" @keyup.enter="sendMessage" aria-label="With textarea" style="" rows="1"></textarea>
-                    </div>
-                    <button type="button" class="btn btn-light"><img src="frontend/image/BaiViet/attachment.png"
-                            width="25px" alt=""></button>
+                            </a>
+                        </div>
+                        <div id="input_cmt">
+                            <textarea v-model="message" @keyup.enter="sendMessage" aria-label="With textarea" style="" rows="1"></textarea>
+                        </div>
+                        <button type="button" class="btn btn-light"><img src="frontend/image/BaiViet/attachment.png"
+                                width="25px" alt=""></button>
 
-                    <button @click="sendMessage" type="button" class="btn btn-light"><img
-                            src="frontend/image/BaiViet/send-message.png" width="25px" alt=""></button>
-                </div>
+                        <button @click="sendMessage" type="button" class="btn btn-light"><img
+                                src="frontend/image/BaiViet/send-message.png" width="25px" alt=""></button>
+                    </div>
 
-                <div>
-                    <link rel="stylesheet"
-                        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-                    <div id='list_comment' class="comment-widgets m-b-20">
-                        @foreach (App\Models\BinhLuan::where('bai_viet_id',$idBaiViet)->orderBy('id', 'DESC')->get() as $item)
-                            <div id="comment_id_{{ $item->id }}" class="d-flex flex-row comment-row ">
-                                <div class="p-2"><span class="round"><img src="{{ $item->nguoiDung->avt }}"
-                                            alt="user" width="50"></span></div>
-                                <div class="comment-text active w-100">
-                                    <h5>{{ $item->nguoiDung->ho . ' ' . $item->nguoiDung->ten }}</h5>
-                                    <div class="comment-footer">
-                                        <span class="date">{{ date_format($item->created_at, 'H:i d-m-Y') }}</span>
-                                        <span class="action-icons active">
-                                            @if (auth()->user()->maNguoiDung == $item->ma_nguoi_dung)
-                                                <p
-                                                    @click="changeTypeToUpdate({{ $item->id }},'{{ $item->noi_dung }}')">
-                                                    <i class="fa fa-pencil"></i>
+                    <div>
+                        <link rel="stylesheet"
+                            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                        <div id='list_comment' class="comment-widgets m-b-20">
+                            @foreach (App\Models\BinhLuan::where('bai_viet_id', $idBaiViet)->orderBy('id', 'DESC')->get()
+        as $item)
+                                <div id="comment_id_{{ $item->id }}" class="d-flex flex-row comment-row ">
+                                    <div class="p-2"><span class="round"><img src="{{ $item->nguoiDung->avt }}"
+                                                alt="user" width="50"></span></div>
+                                    <div class="comment-text active w-100">
+                                        <h5>{{ $item->nguoiDung->ho . ' ' . $item->nguoiDung->ten }}</h5>
+                                        <div class="comment-footer">
+                                            <span
+                                                class="date">{{ date_format($item->created_at, 'H:i d-m-Y') }}</span>
+                                            <span class="action-icons active">
+                                                @if (auth()->user()->maNguoiDung == $item->ma_nguoi_dung)
+                                                    <p
+                                                        @click="changeTypeToUpdate({{ $item->id }},'{{ $item->noi_dung }}')">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </p>
+                                                    <p @click="deleteMessage({{ $item->id }})" href="#"
+                                                        data-abc="true"><i class="fa-solid fa-trash-can text-danger"></i>
+                                                    </p>
+                                                @endif
+
+                                                <p href="#" data-abc="true"><i class="fa fa-heart text-danger"></i>
                                                 </p>
-                                                <p @click="deleteMessage({{ $item->id }})" href="#"
-                                                    data-abc="true"><i class="fa-solid fa-trash-can text-danger"></i></p>
-                                            @endif
+                                                <a href="#" data-abc="true"
+                                                    style="display: flex; float: right; text-decoration-line: none;"><i
+                                                        class="fa fa-heart"
+                                                        style="text-decoration-line: none; margin-top: 4px;margin-right: 5px"></i>0</a>
+                                            </span>
+                                        </div>
 
-                                            <p href="#" data-abc="true"><i class="fa fa-heart text-danger"></i></p>
-                                            <a href="#" data-abc="true"
-                                                style="display: flex; float: right; text-decoration-line: none;"><i
-                                                    class="fa fa-heart"
-                                                    style="text-decoration-line: none; margin-top: 4px;margin-right: 5px"></i>0</a>
-                                        </span>
+                                        <p id='comment_content_{{ $item->id }}' class="m-b-5 m-t-10">
+                                            {!! $item->noi_dung !!}</p>
+
                                     </div>
-                                    
-                                    <p id='comment_content_{{ $item->id }}'  class="m-b-5 m-t-10">
-                                        {!! $item->noi_dung !!}</p>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
 
 
 
 
+                        </div>
                     </div>
                 </div>
-            </div>
 
         </div>
     </div>
@@ -164,7 +181,7 @@
     </div>
 
 
-   
+
     <script>
         // var modal = document.getElementById("myModal");
 

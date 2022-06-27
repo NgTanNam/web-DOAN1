@@ -158,8 +158,22 @@ class BaiVietController extends Controller
         $thanhpho = ThanhPho::all();
         
         $diachi = BaiVietDiaChi::where('maBV', $id)->get();
+        $maP = '';
+        foreach ($diachi as $key => $value) {
+            $maP = $value->maPhuong;
+        }
+        $phuong = XaPhuong::find($maP);
+        $quan = '';
+        $pho = '';
+        if ($phuong) {
+            $quan = QuanHuyen::find($phuong->maqh);
+        }
+        if ($phuong) {
+            $pho =  ThanhPho::find($quan->matp);
+        }
+        
         $video = Video::where('maBV', $id)->get();
-        return view('admin.baiviet.edit')->with(compact('data','sukien','danhmuc','video','thanhpho','diachi'));
+        return view('admin.baiviet.edit')->with(compact('data','sukien','danhmuc','video','thanhpho','diachi','phuong','quan','pho'));
     }
 
     /**

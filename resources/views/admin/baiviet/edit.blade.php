@@ -78,9 +78,10 @@
                             <div class="form-group">
                                 <label>Thành Phố:</label>
                                 <select name="thanhpho" id="thanhpho" class="form-select choose" onchange="select(this)">
-                                    <option value="">--Chọn Thành Phố--</option>
+                                    {{--  --}}
+                                    <option {{ $retVal = ($pho) ? 'disabled' : '' ; }}>--chọn Thành Phố--</option>
                                   @foreach ($thanhpho as $key => $item)
-                                    <option value="{{$item->matp}}">{{$item->name}}</option>
+                                    <option {{ $retVal = ($pho) ? ($pho->matp == $item->matp ? 'selected' : '') : '' ; }} value="{{$item->matp}}">{{$item->name}}</option>
                                   @endforeach
                                 </select>
                             </div>
@@ -88,7 +89,7 @@
                                 <label>Quận Huyện:</label>
                                 <select name="quanhuyen" id="quanhuyen" class="form-select choose" onchange="select(this)">
                                   
-                                    <option value="">--Chọn Quận Huyện--</option>
+                                    <option value="{{$retVal = ($quan) ? $quan->maqh : '' ; }}">{{$retVal = ($quan) ? $quan->name : '--chọn Quận Huyện--' ; }}</option>
                                   
                                 </select>
                             </div>
@@ -96,7 +97,7 @@
                                 <label>Xã Phường:</label>
                                 <select name="xaphuong" id="xaphuong" class="form-select">
                                 
-                                    <option value="">--Chọn Xã Phường--</option>
+                                    <option value="{{$retVal = ($phuong) ? $phuong->maPhuong : '' ; }}">{{$retVal = ($phuong) ? $phuong->name : '--Chọn xã phường--' ; }}</option>
                                   
                                 </select>
                             </div>

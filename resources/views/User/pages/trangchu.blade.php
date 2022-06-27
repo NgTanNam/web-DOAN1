@@ -1,3 +1,8 @@
+@php
+    use App\Models\BaiViet;
+
+@endphp
+
 @extends('User.layout')
 @section('content')
 <header class="flex">
@@ -22,83 +27,23 @@
             <h2 class="lg-title">featured places</h2>
         </div>
         <div class="featured-row">
-            <div class="featured-item my-2 shadow">
-                <img src="{{asset('frontend/khanh/template/images/featured-reo-de-janeiro-brazil.jpg')}}" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        Reo De Janeiro, Brazil
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
 
+            @foreach (BaiViet::all() as $baiViet)
             <div class="featured-item my-2 shadow">
-                <img src="{{asset('frontend/khanh/template/images/featured-north-bondi-australia.jpg')}}" alt="featured place">
+                <img src="{{asset('uploads/images/'.$baiViet->image)}}" alt="featured place">
                 <div class="featured-item-content">
                     <span>
                         <i class="fas fa-map-marker-alt"></i>
-                        North Bondi, Australia
+                      {{$baiViet->tenBV}}
                     </span>
                     <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
+                        <p class="text"><a href="{{ route('bai_viet',['id'=>$baiViet->maBV ]) }}">Click để khám phá thêm bạn nhé <3</a></p>
                     </div>
                 </div>
             </div>
+            @endforeach
 
-            <div class="featured-item my-2 shadow">
-                <img src="{{asset('frontend/khanh/template/images/featured-berlin-germany.jpg')}}" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        Berlin, Germany
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="featured-item my-2 shadow">
-                <img src="{{asset('frontend/khanh/template/images/featured-khwaeng-wat-arun-thailand.jpg')}}" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        Khwaeng wat arun, thailand
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="featured-item my-2 shadow">
-                <img src="{{asset('frontend/khanh/template/images/featured-rome-italy.jpg')}}" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        Rome, Italy
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="featured-item my-2 shadow">
-                <img src="{{asset('frontend/khanh/template/images/featured-fuvahmulah-maldives.jpg')}}" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        fuvahmulah, maldives
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
+ 
         </div>
     </div>
 </section>

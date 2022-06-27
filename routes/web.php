@@ -25,7 +25,7 @@ Route::get('/', function () {
 });
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('baiviet/{id}', [BaiVietController::class, 'getViewBaiVietController']);
+    Route::get('baiviet/{id}', [BaiVietController::class, 'getViewBaiVietController'])->name('bai_viet');
     Route::prefix('binhluan')->group(function () {
         Route::post('', [BaiVietController::class, 'postBinhLuan'])->name('postBinhLuan');
         Route::patch('', [BaiVietController::class, 'patchBinhluan']);
@@ -80,4 +80,8 @@ Route::get('callback', function () {
 
 
     // $user->token
+});
+
+Route::get('get',function(){
+    return getHostByName(getHostName());
 });

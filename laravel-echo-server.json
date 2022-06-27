@@ -1,5 +1,5 @@
 {
-	"authHost": "http://192.168.1.5/web-DOAN1",
+	"authHost": "http://localhost/web-DOAN1",
 	"authEndpoint": "/public/broadcasting/auth",
 	"clients": [],
 	"database": "redis",

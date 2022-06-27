@@ -10,7 +10,7 @@ class BaiViet extends Model
     use HasFactory;
     const UPDATED_AT = null;
     protected $fillable = [
-        'tenBV','maDM', 'maSK', 'trangThai', 'chiTietBaiViet', 'image', 'xaid'
+        'tenBV','maDM', 'maSK', 'trangThai', 'chiTietBaiViet', 'image', 'xaid','so_luot_binh_luan'
     ];
     protected $primaryKey = 'maBV';
     protected $table = 'baiviet';

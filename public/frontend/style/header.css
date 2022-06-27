@@ -19,11 +19,13 @@
 
 .content_thongbao{
     width: 80%;
+    overflow: hidden;
 }
 
 .title_thongbao{
 
-    font-size: 13px;font-weight: 700
+    font-size: 13px;font-weight: 700;
+
 }
 
 .text_content_thongbao{
